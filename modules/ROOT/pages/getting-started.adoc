@@ -86,7 +86,7 @@ storage:
      workspaceSecret: "..." # WorkspaceSecret to decrypt the bundles -- generated during workspace creation
 ----
 
-Assuming you saved the configuration file as `conf.yaml` in the current directory, you can start Cerbos as follows:
+Assuming you saved the configuration file as `.cerbos.yaml` in the current directory, you can start Cerbos as follows:
 
 
 [source,shell]
@@ -94,11 +94,11 @@ Assuming you saved the configuration file as `conf.yaml` in the current director
 docker run --rm --name cerbos \
  -v $(pwd):/conf \
  -p 3592:3592 -p 3593:3593 \
- ghcr.io/cerbos/cerbos:latest server --config=/conf/conf.yaml
+ ghcr.io/cerbos/cerbos:latest server --config=/conf/.cerbos.yaml
 ----
 
 
-See xref:cerbos:configuration:index.adoc[] for all configuration values you can define for the `bundle` driver.
+See xref:cerbos:configuration:index.adoc[] for more information about configuring Cerbos.
 
 
 

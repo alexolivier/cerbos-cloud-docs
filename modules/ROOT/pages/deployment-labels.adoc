@@ -1,6 +1,6 @@
 = Deployment labels
 
-GitOps is a first-class citizen in the Cerbos ecosystem. Cerbos Hub is no exception with support for branches, tags and commit hashes as policy sources. You can build multiple versions of policy bundles based on Git references and distribute them to Cerbos PDP instances running in your environment(s).
+GitOps is a first-class citizen in the Cerbos ecosystem. Cerbos Hub is no exception with support for branches, tags and commit hashes as policy sources. You can build multiple versions of policy bundles based on Git references and distribute them to Cerbos PDPs.
 
 == Label mapping file
 
@@ -30,4 +30,4 @@ The currently active labels can be seen on the Builds page of Cerbos Hub, as wel
 
 image:builds_page.png[alt="Builds page",role="center-img"]
 
-When deploying policy decision points (service or embedded), they are pointed to one of these labels. When a new build is generated, any matching labels are updated to point to this new bundle and the instances will recieve the update and begin serving authorization decisions based on the new policy.
+Your xref:decision-points.adoc[policy decision points] (service or embedded) are always configured with a label name. When new commits are pushed to the policy repository, Cerbos Hub builds new bundles and updates the relevant label references to point to the latest bundles.

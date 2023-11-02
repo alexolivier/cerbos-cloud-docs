@@ -1,8 +1,8 @@
-= Policy Decision Point - Service
+= Service Policy Decision Point
 
-The open source Cerbos server instances that you run in your own infrastructure are called PDPs. Cerbos Hub is the management control plane for PDP instances that are running inside your environment. Rather than each PDP being responsible for detecting policy changes, parsing, compiling and loading them, they get pre-compiled policy bundles pushed to them from Cerbos Hub. This model ensures that all your data remains within your network perimeter and that authorization checks happen locally with low latency while reducing the overhead of policy updates and the time it takes for the whole fleet to get in sync. A PDP must be configured with the name of a label, workspace secret and API key in order to connect to Cerbos Hub.
+The open source Cerbos server instances that you run in your own infrastructure are called service PDPs. Cerbos Hub is the management control plane for PDP instances that are running inside your environment. Rather than each PDP being responsible for detecting policy changes, parsing, compiling and loading them, they get pre-compiled policy bundles pushed to them from Cerbos Hub. This model ensures that all your data remains within your network perimeter and that authorization checks happen locally with low latency while reducing the overhead of policy updates and the time it takes for the whole fleet to get in sync. A PDP must be configured with the name of a label, workspace secret and client credentials in order to connect to Cerbos Hub.
 
-== Deploy a policy decision point
+== Deploying a PDP
 
 Connecting to Cerbos Hub is a matter of configuring the `bundle` storage driver, which can be configured using the configuration file, environment variables or command line arguments.
 
@@ -47,7 +47,7 @@ storage:
      workspaceSecret: "..." # WorkspaceSecret to decrypt the bundles -- generated during workspace creation
 ----
 
-Assuming you saved the configuration file as `conf.yaml` in the current directory, you can start Cerbos as follows:
+Assuming you saved the configuration file as `.cerbos.yaml` in the current directory, you can start Cerbos as follows:
 
 
 [source,shell]
@@ -55,13 +55,13 @@ Assuming you saved the configuration file as `conf.yaml` in the current director
 docker run --rm --name cerbos \
  -v $(pwd):/conf \
  -p 3592:3592 -p 3593:3593 \
- ghcr.io/cerbos/cerbos:latest server --config=/conf/conf.yaml
+ ghcr.io/cerbos/cerbos:latest server --config=/conf/.cerbos.yaml
 ----
 
-See xref:cerbos:configuration:index.adoc[] for all configuration values you can define for the `bundle` driver.
+See xref:cerbos:configuration:index.adoc[] for more information about configuring Cerbos.
 
 == Monitoring
 
-The Decsion points page in Cerbos Hub provides a view of all the recently connected policy decision point instances to the workspace, including when it was last seen, which version it is running and which deployment label is is monitoring for updates.
+The Decsion points page in Cerbos Hub provides a view of all the recently connected PDP instances of the workspace.
 
 image:connected_pdps.png[alt="Connected instances",role="center-img"]

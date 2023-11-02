@@ -15,17 +15,17 @@ This is a BETA release of new functionality for Cerbos. While it has been tested
 
 [unordered.stack]
 Managed CI/CD pipeline for Cerbos policies:: Cerbos Hub serves as a managed CI/CD pipeline specifically designed for validating, testing, and distributing policies in a more efficient manner compared to the open-source version. With Cerbos Hub, you can automate and streamline the entire policy management process.
-Embedded Policy Decision Point:: Cerbos Hub generates an embeddable version of policies - powered by WebAssembly - enabling authorization decision to be made on device, at edge or other environments where it is not possible to run a service. These bundles are generated through the CI/CD pipeline and are kept in sync with your policies on every change.
 Coordinated rollout of policy changes:: Cerbos Hub simplifies policy updates by centrally managing the rollout process to all PDP service instances. Instead of each instance handling its own update cycle, Cerbos Hub takes the proactive approach of pushing policy changes to all instances. This ensures a smoother rollout experience and reduces the time it takes for all PDPs to get in sync with each other.
 Leverage your Git workflow:: GitOps is a first-class citizen in the Cerbos ecosystem. Cerbos Hub is no exception with support for branches, tags and commit hashes as policy sources. You can build multiple versions of policy bundles based on Git references and distribute them to Cerbos PDP instances running in your environment(s).
 PDP monitoring:: Cerbos Hub provides visibility into your deployed PDP instances, including which policies are currently being served, the current version and when it was last seen.
+Embeddable policies:: Exclusive to Cerbos Hub is the ability to generate self-contained policy snapshots that can be embedded into any system that supports WebAssembly modules. This is a powerful solution for cases where authorization decisions have to be made locally on device or at the edge without access to a full-fledged Cerbos policy decision point.
 
 
 == How it works
 
-Cerbos Hub is a cloud-hosted management control plane. Cerbos instances and the data they process remain strictly inside your network perimeter. Switching to Cerbos Hub is as simple as pushing a minor configuration change to your existing Cerbos deployment. Everything remains the same except that Cerbos instances now receive optimized policy bundles from Cerbos Hub instead of having to poll a policy repository and compile new policies locally.
+Cerbos Hub is a cloud-hosted management control plane. Cerbos instances and the data they process remain strictly inside your network perimeter. Switching to Cerbos Hub is as simple as pushing a minor configuration change to your existing Cerbos deployment. Everything remains the same except that Cerbos instances now receive optimized policy bundles from Cerbos Hub instead of having to poll a policy repository and compile new policies locally as they change.
 
-Cerbos Hub handles the validation, testing, compilation and deployment of policy updates to all connected Cerbos instances.
+Cerbos Hub handles the validation, testing, compilation and deployment of policy updates to all connected Cerbos policy decision points. Embedded bundles are published as part of the CI process as well and clients are able to retrieve the latest builds via a special URL.
 
 image:how_cerbos_hub_works.png[alt="How Cerbos Hub works",role="center-img"]
 

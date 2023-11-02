@@ -1,31 +1,32 @@
 = CI/CD pipeline
 
-Cerbos Hub serves as a managed CI/CD pipeline specifically designed for validating, testing, and distributing policies in a more efficient manner compared to the open-source version. With Cerbos Hub, you can automate and streamline the entire policy management process.
+Cerbos Hub serves as a managed CI/CD pipeline specifically designed for validating, testing, and distributing policies in a more efficient manner compared to the open-source version. With Cerbos Hub, you can effortlessly automate and streamline the entire policy management process in a few minutes.
 
-== Compilation
 
-Whenever Cerbos Hub detects a change in the policy repository, it will attempt to compile the policies. Once the compilation starts you will see the commit hash along with the build status showing as `In progress`. 
+Whenever Cerbos Hub detects a change in the policy repository, it starts the compilation and testing process for the policies. Builds in progress are shown on the Cerbos Hub UI with the build status of `In progress`.
 
 image:builds_in_progress.png[alt="Build in progress",role="center-img"]
 
-If the compilation fails, you will see an error message for the given commit hash. The build page shows the build status of each commit.
+If there are any compilation failures, the builds page will display the fail status next to the commit hash.
 
 image:compilation_failed.png[alt="Failed compilation",role="center-img"]
 
-Once the compilation is complete, Cerbos Hub will automatically run the tests in the policy repository. 
+If you click on any record in the builds page, you can see the details of the build. The details page shows the commit hash, the policies that were changed, and the status of the build. In case of the compilation failure it will show the reason why the compilation failed.
 
-== Test runner
+image:compile_fail_detail.png[alt="Failed compilation details",role="center-img"]
 
-After a build compiles, Cerbos Hub will run the tests in the policy repository. If the tests fail, you will see an error message for the given commit hash. The build page shows the build status of each commit.
+After the compilation stage is successful, Cerbos Hub runs any policy tests found in the repository. If any of the tests fail, the build page will display the failures along with any information that might be useful for debugging the failures.
 
 image:failed_tests.png[alt="Tests failed",role="center-img"]
 
-== Distribution
+Clicking on the row will show the details of the test failure.
 
-Once the policies are compiled and all the tests pass, the status of the bundle will be changed to `Generated`. The policy bundle will be automatically distributed to the xref:decision-points-service.adoc[Cerbos PDPs] that are associated with the current label. For creation and assigment of labels see xref:deployment-labels.adoc[Deployment Labels].
+image:fail_test_detail.png[alt="Failed test details",role="center-img"]
+
+If compilation and testing succeeds, the bundle status changes to `Generated` and the status of relevant xref:deployment-labels.adoc[deployment labels] is updated to point to the new bundle. All xref:decision-points-service.adoc[PDPs] that are currently connected to Cerbos Hub are notified about the new bundle and instructed to update themselves.
 
 image:deployments.png[alt="Distribution Labels",role="center-img"]
 
-Similary the xref:decision-points-embedded.adoc[Embedded policy bundle] will be generated and their statuses will be updated in the `Embedded builds` tab.
+You can see the status of xref:decision-points-embedded.adoc[bundles for embedded PDPs] in the `Embedded builds` tab of the same screen.
 
 
