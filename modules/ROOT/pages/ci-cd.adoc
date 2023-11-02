@@ -7,13 +7,21 @@ Whenever Cerbos Hub detects a change in the policy repository, it starts the com
 
 image:builds_in_progress.png[alt="Build in progress",role="center-img"]
 
-If there are any compilation failures, the builds page will display them next to the commit hash.
+If there are any compilation failures, the builds page will display the fail status next to the commit hash.
 
 image:compilation_failed.png[alt="Failed compilation",role="center-img"]
+
+If you click on any record in the builds page, you can see the details of the build. The details page shows the commit hash, the policies that were changed, and the status of the build. In case of the compilation failure it will show the reason why the compilation failed.
+
+image:compile_fail_detail.png[alt="Failed compilation details",role="center-img"]
 
 After the compilation stage is successful, Cerbos Hub runs any policy tests found in the repository. If any of the tests fail, the build page will display the failures along with any information that might be useful for debugging the failures.
 
 image:failed_tests.png[alt="Tests failed",role="center-img"]
+
+Clicking on the row will show the details of the test failure.
+
+image:fail_test_detail.png[alt="Failed test details",role="center-img"]
 
 If compilation and testing succeeds, the bundle status changes to `Generated` and the status of relevant xref:deployment-labels.adoc[deployment labels] is updated to point to the new bundle. All xref:decision-points-service.adoc[PDPs] that are currently connected to Cerbos Hub are notified about the new bundle and instructed to update themselves.
 
