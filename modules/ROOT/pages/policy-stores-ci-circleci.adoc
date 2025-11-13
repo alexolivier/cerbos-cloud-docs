@@ -1,0 +1,65 @@
+= Cerbos Hub CircleCI Integration
+
+Run Cerbos policy uploads as part of every CircleCI build. The workflow below provisions a remote Docker environment, runs the `cerbosctl` container, and publishes bundles whenever changes reach the main branch.
+
+== Prerequisites
+
+* A CircleCI account connected to the GitHub or Bitbucket repository that stores your policies.
+* A configured project in CircleCI for that repository.
+* Cerbos Hub credentials (`CERBOS_HUB_CLIENT_ID` and `CERBOS_HUB_CLIENT_SECRET`) plus the Store ID you plan to update.
+
+== Create `.circleci/config.yml`
+
+. In your repository, create the directory `.circleci` (if it does not already exist) and add a `config.yml` file with the content below:
+
+[source,yaml]
+----
+# .circleci/config.yml
+version: 2.1
+
+jobs:
+  upload-policies:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: default
+      - run:
+          name: Upload policies
+          command: |
+            docker run --rm \
+              -e CERBOS_HUB_CLIENT_ID \
+              -e CERBOS_HUB_CLIENT_SECRET \
+              -v "$PWD":/app \
+              ghcr.io/cerbos/cerbosctl:latest \
+              hub store replace-files \
+                --store-id="<STORE_ID>" \
+                --message="Policy upload from CircleCI" \
+                /app
+                # Optional: append --api-endpoint="https://<region>.cerbos.cloud" if Cerbos provided a custom endpoint
+
+workflows:
+  build-and-upload:
+    jobs:
+      - upload-policies:
+          filters:
+            branches:
+              only: main
+----
+
+Replace `<STORE_ID>` with the identifier shown in Cerbos Hub. Update the branch filter, workflow name, or base image as needed for your project.
+
+== Add project environment variables
+
+. Open the project in the CircleCI dashboard and click *Project Settings*.
+. Navigate to *Environment Variables* and add two variables:
+* `CERBOS_HUB_CLIENT_ID` → paste the client ID value.
+* `CERBOS_HUB_CLIENT_SECRET` → paste the client secret value.
+. Save both variables; CircleCI will mask them in build logs automatically.
+
+== Commit and verify
+
+. Commit `.circleci/config.yml` to the repository and push it to the `main` branch.
+. Go back to CircleCI and open the project’s dashboard. A new workflow run named **build-and-upload** will appear; select it to view the **upload-policies** job output.
+. When the job finishes successfully, the newest version of your repository has been uploaded to Cerbos Hub, and future pushes will repeat the process.

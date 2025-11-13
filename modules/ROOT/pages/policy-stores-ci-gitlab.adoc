@@ -1,0 +1,51 @@
+= Cerbos Hub GitLab CI/CD Integration
+
+Use GitLab CI/CD to automatically upload policy changes to Cerbos Hub every time code lands in your main branch. The pipeline uses Docker-in-Docker to run the official `cerbosctl` container so that no extra tooling is needed inside the GitLab job.
+
+== Prerequisites
+
+* A GitLab project with Pipelines enabled and access to Shared Runners (enabled by default on GitLab.com).
+* A Cerbos Hub workspace with a policy store and its Store ID.
+* Cerbos Hub API credentials (`CERBOS_HUB_CLIENT_ID` and `CERBOS_HUB_CLIENT_SECRET`).
+
+== Create the `.gitlab-ci.yml` file
+
+. In the root of your repository, create a file named `.gitlab-ci.yml` with the following content:
+
+[source,yaml]
+----
+# .gitlab-ci.yml
+upload-policies:
+  image: docker:24.0.5
+  services:
+    - docker:24.0.5-dind
+  script:
+    - |
+      docker run --rm \
+        -e CERBOS_HUB_CLIENT_ID \
+        -e CERBOS_HUB_CLIENT_SECRET \
+        -v "$CI_PROJECT_DIR":/app \
+        ghcr.io/cerbos/cerbosctl:latest \
+        hub store replace-files \
+          --store-id="<STORE_ID>" \
+          --message="Policy upload from GitLab" \
+          /app
+          # Optional: append --api-endpoint="https://<region>.cerbos.cloud" if Cerbos provided a custom endpoint
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+----
+
+Replace `<STORE_ID>` with the identifier of your policy store. The job name and commit branch filter can be adjusted to suit your workflow.
+
+== Add pipeline variables
+
+. In GitLab, open *Settings → CI/CD* for your project and expand the *Variables* section.
+. Click *Add variable*, set the *Key* to `CERBOS_HUB_CLIENT_ID`, paste the client ID value, and enable the *Protect variable* and *Mask variable* options before saving.
+. Repeat the process for `CERBOS_HUB_CLIENT_SECRET`.
+. *Note:* Protected variables are only injected when the pipeline runs on a protected branch. If your `main` branch is not protected, either protect it or disable the *Protect variable* option so the job can access the secrets.
+
+== Commit and verify
+
+. Commit `.gitlab-ci.yml` and push it to the `main` branch (or whichever branch you configured in the `rules`).
+. Navigate to *CI/CD → Pipelines* in GitLab to watch the **upload-policies** job run. Selecting the job opens the full Docker log so you can confirm that `hub store replace-files` succeeded.
+. Every subsequent push to the monitored branch will trigger the pipeline and sync your policies with Cerbos Hub.

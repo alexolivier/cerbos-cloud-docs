@@ -1,0 +1,60 @@
+= Cerbos Hub GitHub Actions Integration
+
+Use GitHub Actions to automatically push policy changes from your repository into a Cerbos Hub policy store. The workflow checks out your repository, runs the official `cerbos/cerbos-store-action`, and publishes updated bundles every time code is merged into the main branch.
+
+== Prerequisites
+
+* A Cerbos Hub workspace with an existing policy store and its Store ID.
+* A GitHub repository that contains the policies you want to manage.
+* Cerbos Hub API credentials (`CERBOS_HUB_CLIENT_ID` and `CERBOS_HUB_CLIENT_SECRET`).
+
+== Create the GitHub Actions workflow
+
+. In your repository, create the directory `.github/workflows` if it does not already exist.
+. Inside that directory, create a file named `upload-policies.yml` with the following content:
+
+[source,yaml]
+----
+# .github/workflows/upload-policies.yml
+name: Upload Cerbos policies
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  upload-policies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Upload policies
+        uses: cerbos/cerbos-store-action@v1
+        with:
+          github_token: ${{ github.token }}
+          store_id: <STORE_ID>
+          client_id: ${{ secrets.CERBOS_HUB_CLIENT_ID }}
+          client_secret: ${{ secrets.CERBOS_HUB_CLIENT_SECRET }}
+          from_revision: HEAD^
+          # Optional: add api_endpoint: https://<region>.cerbos.cloud if Cerbos provided a custom endpoint
+----
+
+Replace `<STORE_ID>` with the identifier of your policy store, as shown in Cerbos Hub. If your tenant uses a custom API endpoint, add the `api_endpoint` line under the `with` block.
+
+== Store the Cerbos Hub credentials
+
+. Open your repository (or organization) in GitHub and navigate to *Settings*.
+. Select *Secrets and variables → Actions*.
+. Create a secret named `CERBOS_HUB_CLIENT_ID` and paste the client ID value issued by Cerbos Hub.
+. Create another secret named `CERBOS_HUB_CLIENT_SECRET` and paste the matching client secret.
+
+== Run and verify the workflow
+
+. Commit the new workflow file and push it to the `main` branch (or whichever branch the workflow watches).
+. Go to the *Actions* tab in GitHub to watch the **Upload Cerbos policies** workflow run. A green check mark next to the *Upload policies* step confirms that the policies were uploaded.
+. Subsequent pushes to the tracked branch will automatically trigger the same workflow and keep the policy store in sync.

@@ -1,0 +1,59 @@
+= Cerbos Hub Buildkite Integration
+
+Use Buildkite to trigger Cerbos Hub uploads whenever policies change. The configuration below assumes you already have a running Buildkite agent with Docker installed.
+
+== Prerequisites
+
+* A Buildkite organization with an existing pipeline connected to your repository.
+* A Buildkite agent running on infrastructure where you can inject environment variables.
+* Cerbos Hub API credentials (`CERBOS_HUB_CLIENT_ID` and `CERBOS_HUB_CLIENT_SECRET`) and the Store ID to update.
+
+== Configure secrets on the agent
+
+Buildkite expects secrets to be present in the agent’s environment. The simplest approach is to set the variables system-wide on the host running the agent service:
+
+[source,bash]
+----
+# On the machine that runs your Buildkite agent
+sudo nano /etc/environment
+
+# Add the following lines
+CERBOS_HUB_CLIENT_ID="your-client-id"
+CERBOS_HUB_CLIENT_SECRET="your-client-secret"
+
+# Save the file and restart the agent
+sudo systemctl restart buildkite-agent
+----
+
+Any secure mechanism (such as environment hooks or a secrets manager) works so long as the agent process exposes the two variables when your steps run.
+
+== Create `.buildkite/pipeline.yml`
+
+. In your repository, create the directory `.buildkite` and add a `pipeline.yml` file containing:
+
+[source,yaml]
+----
+# .buildkite/pipeline.yml
+steps:
+  - label: Upload Cerbos policies
+    if: build.branch == 'main'
+    command: |
+      docker run --rm \
+        -e CERBOS_HUB_CLIENT_ID \
+        -e CERBOS_HUB_CLIENT_SECRET \
+        -v "$PWD":/app \
+        ghcr.io/cerbos/cerbosctl:latest \
+        hub store replace-files \
+          --store-id="<STORE_ID>" \
+          --message="Policy upload from Buildkite" \
+          /app
+          # Optional: append --api-endpoint="https://<region>.cerbos.cloud" if Cerbos provided a custom endpoint
+----
+
+Update `<STORE_ID>` with the identifier from Cerbos Hub. You can remove or change the branch condition if you need to run on every commit.
+
+== Commit and observe the build
+
+. Commit `.buildkite/pipeline.yml` and push it to the branch your pipeline tracks.
+. Open the pipeline in the Buildkite dashboard; a new build starts automatically when the repository updates. Click the build to watch the **Upload Cerbos policies** step running on your agent.
+. When the step finishes successfully, `cerbosctl` has synchronized your policy store. Future pushes will repeat the same process.

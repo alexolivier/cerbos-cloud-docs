@@ -9,12 +9,12 @@
 *** https://www.cerbos.dev/blog/automating-cerbos-policy-deployments-with-bitbucket-pipelines[BitBucket,window=_blank]
 *** https://www.cerbos.dev/blog/automating-cerbos-policy-deployments-with-azure-devops-pipelines[Azure DevOps,window=_blank]
 ** CI/CD integrations
-*** https://www.cerbos.dev/blog/automating-cerbos-policy-deployments-with-github-actions[GitHub Actions,window=_blank]
-*** https://www.cerbos.dev/blog/automating-cerbos-policy-deployments-with-gitlab-runners[GitLab Runners,window=_blank]
-*** https://www.cerbos.dev/blog/automating-cerbos-policy-deployments-with-bitbucket-pipelines[BitBucket Pipelines,window=_blank]
-*** https://www.cerbos.dev/blog/automating-cerbos-policy-deployments-with-azure-devops-pipelines[Azure DevOps Pipelines,window=_blank]
-*** https://www.cerbos.dev/blog/automating-cerbos-policy-deployments-with-circleci[CircleCI,window=_blank]
-*** https://www.cerbos.dev/blog/automating-cerbos-policy-deployments-with-buildkite[Buildkite,window=_blank]
+*** xref:policy-stores-ci-github-actions.adoc[GitHub Actions]
+*** xref:policy-stores-ci-gitlab.adoc[GitLab CI/CD]
+*** xref:policy-stores-ci-bitbucket-pipelines.adoc[Bitbucket Pipelines]
+*** xref:policy-stores-ci-azure-devops.adoc[Azure DevOps Pipelines]
+*** xref:policy-stores-ci-circleci.adoc[CircleCI]
+*** xref:policy-stores-ci-buildkite.adoc[Buildkite]
 ** API/SDK integrations
 *** xref:policy-stores-sdk-javascript.adoc[Javascript SDK]
 *** xref:policy-stores-sdk-python.adoc[Python SDK]
