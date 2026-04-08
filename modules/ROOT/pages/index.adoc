@@ -1,18 +1,23 @@
 = Cerbos Hub
 
+[TIP]
+====
+Cerbos Hub has a free tier. https://hub.cerbos.cloud/?utm_campaign=brand_cerbos&utm_source=documentation&utm_medium=text[Sign up →]
+====
+
 Cerbos Hub simplifies the process of authoring authorization policies, testing changes, rolling out updates to production, and aggregating audit logs about authorization decisions. It is a scalable solution for developers who want to save time, streamline their workflows, and confidently roll out authorization updates, freeing you to focus on delivering great products to your customers.
 
 == Features
 
 [unordered.stack]
-Collaborative policy editing:: Cerbos Hub playgrounds provide private, collaborative, IDE-like development environments to help author and test policies with ease. Drag and drop policy and test files directly into the playground editor for fast loading and testing.
-Managed build and release pipeline:: Cerbos Hub automatically validates, tests, signs, and distributes every policy change, giving you a turnkey CI/CD pipeline without extra infrastructure. Policy execution traces are available for debugging complex authorization logic, showing a step-by-step view of how requests are evaluated.
-Source agnostic policy stores:: Populate policy stores from any source using any of the many integration methods available.
-Coordinated rollout of policy changes:: Cerbos Hub pushes new policy bundles to every connected PDP instance, ensuring fleet-wide consistency and eliminating manual polling or reload logic.
-PDP monitoring:: Cerbos Hub shows which policies each PDP is serving, the exact bundle version, and when the instance was last seen.
-Embedded policy decision points:: Evaluate policies locally in browsers, edge functions, and other JavaScript environments using WebAssembly. Configure multiple ePDP rules per deployment, each with independent policy filtering (by resource, action, scope, role, or version), authentication requirements, and IP allowlists. Dynamic scopes enable per-tenant bundles in multi-tenant applications.
-Audit log aggregation:: With one line of configuration you can stream PDP decision logs to Cerbos Hub, filter sensitive fields locally, and retain searchable history without running a separate log stack.
-Organization usage dashboard:: The organization-level usage dashboard aggregates metrics from all your workspaces, providing a unified view of request volumes, policy distribution, and usage trends across your organization.
+xref:playground.adoc[Collaborative policy editing]:: Cerbos Hub playgrounds provide private, collaborative, IDE-like development environments to help author and test policies with ease. Drag and drop policy and test files directly into the playground editor for fast loading and testing.
+xref:deployments.adoc[Managed build and release pipeline]:: Cerbos Hub automatically validates, tests, signs, and distributes every policy change, giving you a turnkey CI/CD pipeline without extra infrastructure. Policy execution traces are available for debugging complex authorization logic, showing a step-by-step view of how requests are evaluated.
+xref:policy-stores.adoc[Source agnostic policy stores]:: Populate policy stores from any source using any of the many integration methods available.
+xref:deployments.adoc[Coordinated rollout of policy changes]:: Cerbos Hub pushes new policy bundles to every connected PDP instance, ensuring fleet-wide consistency and eliminating manual polling or reload logic.
+xref:decision-points.adoc[PDP monitoring]:: Cerbos Hub shows which policies each PDP is serving, the exact bundle version, and when the instance was last seen.
+xref:deployments-epdp-rules.adoc[Embedded policy decision points]:: Evaluate policies locally in browsers, edge functions, and other JavaScript environments using WebAssembly. Configure multiple ePDP rules per deployment, each with independent policy filtering (by resource, action, scope, role, or version), authentication requirements, and IP allowlists. Dynamic scopes enable per-tenant bundles in multi-tenant applications.
+xref:audit-log-collection.adoc[Audit log aggregation]:: With one line of configuration you can stream PDP decision logs to Cerbos Hub, filter sensitive fields locally, and retain searchable history without running a separate log stack.
+xref:administration.adoc[Organization usage dashboard]:: The organization-level usage dashboard aggregates metrics from all your workspaces, providing a unified view of request volumes, policy distribution, and usage trends across your organization.
 
 == How it works
 
@@ -35,3 +40,8 @@ Optionally, configure Cerbos Hub as an audit backend for the PDPs. Logs are stre
 * xref:getting-started.adoc[Quick start guide] — Create a policy store, deployment, and connect your first PDP.
 * xref:decision-points.adoc[Service PDPs] — Production deployment patterns for server-side authorization.
 * xref:deployments-epdp-rules.adoc[Embedded PDPs] — Client-side authorization for browsers and edge functions.
+
+[NOTE]
+====
+For guidance on deployment patterns, fleet scaling, and operational practices, https://www.cerbos.dev/workshop?utm_campaign=brand_cerbos&utm_source=documentation&utm_medium=text[speak to a Cerbos engineer].
+====
