@@ -1,5 +1,45 @@
 = Release notes
 
+== 2026-04-14
+
+[#_2026_04_14]
+
+=== Audit log filtering by PDP and policy source
+
+[#_audit_log_filtering_by_pdp_and_policy_source]
+
+Audit logs can now be filtered by PDP instance ID and policy source. This makes it easier to isolate authorization decisions from specific PDP deployments or trace decisions back to the policy store that produced them.
+
+[#_audit_log_time_filter_default]
+
+The audit logs page no longer applies a default three-month time filter when opened. You now see the full range of available logs by default, making it faster to start exploring recent decisions without adjusting filters first.
+
+== 2026-04-08
+
+[#_2026_04_08]
+
+=== Deployment and table UI fixes
+
+[#_deployment_and_table_ui_fixes]
+
+Fixed broken tabs on the deployment detail page and resolved an issue where tables could scroll past their bounds on some browsers.
+
+== 2026-03-31
+
+[#_2026_03_31]
+
+=== Organization search
+
+[#_organization_search]
+
+The organization list page now includes a search field, letting you quickly find organizations by name. This is particularly useful for users who belong to many organizations.
+
+=== Playground save performance
+
+[#_playground_save_performance]
+
+Saving playgrounds is now significantly faster. File contents are only transmitted when they have actually changed, reducing latency when saving large playgrounds with many policy files.
+
 == 2026-03-10
 
 === Build page live updates

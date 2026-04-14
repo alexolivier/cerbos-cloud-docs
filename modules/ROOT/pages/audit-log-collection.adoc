@@ -117,7 +117,7 @@ Policy names in audit log entries are clickable links. Click any policy name in 
 
 ==== Filtering
 
-Filter the logs by time range, PDP ID, principal, resource kind, action, or policy decision to find specific entries.
+Filter the logs by time range, PDP ID, policy source, principal, resource kind, action, or policy decision to find specific entries.
 
 === Access logs
 
