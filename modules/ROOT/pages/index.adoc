@@ -1,8 +1,27 @@
 = Cerbos Hub
 
-Cerbos Hub simplifies the process of authoring authorization policies, testing changes, rolling out updates to production, and aggregating audit logs about authorization decisions. It is a scalable solution for developers who want to save time, streamline their workflows, and confidently roll out authorization updates, freeing you to focus on delivering great products to your customers.
+Cerbos Hub is an end-to-end authorization platform comprising a policy control plane, a data enrichment layer, and a distributed policy engine. It covers the full authorization lifecycle: authoring, testing, versioning, distribution, data enrichment, decision evaluation, and audit.
 
-== Features
+== Platform components
+
+[cols="1,3"]
+|===
+|Component |Role
+
+|**Cerbos Hub** — Policy Administration Point
+|Control plane for policy authoring, testing, versioning, distribution, and audit visibility.
+
+|**xref:synapse.adoc[Cerbos Synapse]** — Data and integration layer
+|Enrichment layer that gathers identity and resource data from existing systems and delivers complete context to the policy engine. https://cerbos.dev/contact[Contact the Cerbos team] for access.
+
+|**Cerbos PDP** — Policy Decision Point
+|Open source authorization engine that evaluates requests against policies and returns access decisions. Stateless, high-performance, and built to scale horizontally.
+
+|**Cerbos PEP SDKs** — Policy Enforcement Point
+|Language-native client libraries that connect applications directly to PDPs to enforce real-time access decisions.
+|===
+
+== Cerbos Hub features
 
 [unordered.stack]
 Collaborative policy editing:: Cerbos Hub playgrounds provide private, collaborative, IDE-like development environments to help author and test policies with ease. Drag and drop policy and test files directly into the playground editor for fast loading and testing.
@@ -35,3 +54,4 @@ Optionally, configure Cerbos Hub as an audit backend for the PDPs. Logs are stre
 * xref:getting-started.adoc[Quick start guide] — Create a policy store, deployment, and connect your first PDP.
 * xref:decision-points.adoc[Service PDPs] — Production deployment patterns for server-side authorization.
 * xref:deployments-epdp-rules.adoc[Embedded PDPs] — Client-side authorization for browsers and edge functions.
+* xref:synapse.adoc[Synapse] — Authorization data enrichment and infrastructure integrations.

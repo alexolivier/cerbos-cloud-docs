@@ -33,6 +33,7 @@
 * Policy Decision Points (PDPs)
 ** xref:decision-points.adoc[Service]
 ** xref:deployments-epdp-rules.adoc[Embedded]
+* xref:synapse.adoc[Synapse]
 * xref:audit-log-collection.adoc[Audit log collection]
 * xref:usage-dashboard.adoc[Usage dashboard]
 * xref:administration.adoc[Administration]

@@ -13,7 +13,7 @@ Pre-compiled bundles:: Policies are compiled once by Cerbos Hub and pushed as op
 Instant fleet-wide updates:: Push-based distribution means all PDPs receive updates within seconds—no polling delays or staggered rollouts.
 Validated before deployment:: Policies are tested automatically before distribution. Failed tests block deployment, preventing broken policies from reaching production.
 Centralized visibility:: Monitor all connected PDPs from a single dashboard. See which version each instance is running, when it last connected, and access its audit logs.
-Built-in resilience:: PDPs cache bundles locally and continue operating if Cerbos Hub is temporarily unavailable. New instances can start from cached bundles served by a high-availability fallback service.
+Built-in resilience:: PDPs cache bundles locally and continue operating if the Cerbos Hub API is temporarily unavailable. New instances can start immediately using bundles served from a CDN, independent of the API.
 
 For environments where running a Cerbos server is impractical, such as browser applications or edge functions, see xref:deployments-epdp-rules.adoc[Embedded PDPs].
 
@@ -215,10 +215,10 @@ TIP: For AWS Marketplace (EKS/ECS), the Helm chart handles metering automaticall
 
 == Reliability
 
-Cerbos Hub is designed for high availability. However, if Cerbos Hub becomes temporarily unavailable:
+Cerbos Hub is designed for high availability. However, if the Cerbos Hub API becomes temporarily unavailable:
 
 * **Running PDPs** continue serving requests using the last downloaded bundle while attempting to reconnect in the background
-* **New PDPs** can start with the last successfully built bundle, served from a separate high-availability service
+* **New PDPs** can start immediately because the last successfully built bundle for each deployment is served from a CDN, independent of the Cerbos Hub API. The bundle is encrypted with your client credentials, so only your PDPs can decrypt it. Once the PDP has loaded the bundle and is serving requests, it establishes a connection to the Cerbos Hub API in the background to receive push notifications about new builds.
 
 === Local bundle caching
 

@@ -1,0 +1,73 @@
+= Cerbos Synapse
+
+Cerbos Synapse is a data enrichment and integration layer that sits between callers and the Cerbos PDP. It assembles the identity, resource, and relationship attributes that policies require for evaluation, fetching them from external systems at decision time. It also exposes authorization endpoints that integrate with infrastructure components — API gateways, messaging queues, data platforms, and orchestration systems — through the protocols they already support.
+
+Synapse can run an in-process PDP or proxy requests to an existing PDP fleet. In its default configuration it exposes the same Cerbos API (HTTP and gRPC) and behaves identically to a standalone PDP.
+
+== What it does
+
+Synapse addresses two problems that arise in production authorization deployments:
+
+Data assembly::
+Every authorization decision requires attributes — who the principal is, what groups they belong to, what the resource's sensitivity level is. Without Synapse, each application builds its own middleware to fetch this data from identity providers, databases, and internal APIs before calling the PDP. Synapse moves this responsibility out of the application layer and into a dedicated component alongside the policy engine.
+
+Protocol translation::
+Systems such as Envoy, Kafka, Trino, and Kubernetes each have their own authorization protocol. Synapse translates between these protocols and the Cerbos `CheckResources` API, so each system can delegate access control decisions to Cerbos using its native hooks.
+
+== Architecture
+
+Synapse is a self-hosted component that runs within your environment. It is built on three extension points:
+
+Proxy extensions::
+Interceptors for `CheckResources` and `PlanResources` requests and responses. When Synapse receives a Cerbos API request, it passes the request through configured proxy extensions in priority order. Extensions can add, modify, or remove attributes on the principal or resource before the request reaches the PDP. The response passes back through the same chain, allowing extensions to redact fields or augment the output. Applications can send partial requests — Synapse completes them before evaluation.
+
+Route extensions::
+Custom HTTP endpoints that accept requests in formats defined by external systems, transform them into valid Cerbos requests, call the PDP, and format the response. This is how Synapse integrates with systems that use their own authorization protocol. Mappings can be defined declaratively using CEL expressions or programmatically using custom extensions.
+
+Data sources::
+Reusable connectors that other extensions call by name to retrieve data. A data source encapsulates access to an external system — a SQL database, an identity provider API, a graph store, or any other service. Data sources include a caching layer (local in-memory or shared Redis) to reduce latency and load on upstream systems. Synapse ships with a built-in `sqldb` data source supporting PostgreSQL, MySQL, SQLite, and Litestream.
+
+Extensions can be implemented as:
+
+* Native components built and distributed by Cerbos
+* Starlark scripts (a lightweight Python dialect)
+* WASM modules compiled from any supported language
+* CEL-based declarative mappings (select extension points)
+
+== Infrastructure integrations
+
+Route extensions allow Synapse to accept authorization requests from infrastructure systems that use their own protocols. Because route extensions can map arbitrary HTTP requests to Cerbos `CheckResources` calls, they can integrate with any system that supports delegating access control to an external endpoint.
+
+Examples of systems that can delegate to Synapse through route extensions:
+
+* API gateways and proxies (e.g. Envoy, which is supported natively via the built-in external authorization API implementation)
+* Messaging and streaming platforms (e.g. Kafka)
+* Query engines and data platforms (e.g. Trino)
+* Container orchestration and admission control (e.g. Kubernetes)
+* Any system that supports OPA-compatible authorization endpoints
+
+== Identity provider enrichment
+
+Proxy extensions can fetch principal attributes from identity providers at decision time. Instead of requiring the calling application to resolve the full user profile, Synapse accepts a user ID or token and retrieves the rest:
+
+* User profiles, group memberships, and role assignments from Okta, Entra ID, Cognito, LDAP, and Keycloak
+* Device posture and session attributes from identity-aware systems
+* Organizational data from HR platforms and internal directories
+
+== Agent and non-human identity support
+
+When an AI agent or service account makes a request, it typically carries minimal identity context. Synapse resolves the human identity behind the agent by fetching the delegating user's profile from the configured identity provider. Both identities — the agent and the user — are included in the `CheckResources` request as principal attributes. The policy engine evaluates both in a single call.
+
+Each agent request is evaluated independently against the current policy. There is no session-based privilege carry-over between requests.
+
+== Relationship-based access control
+
+Data sources can connect to graph databases (Neo4j, Amazon Neptune) to resolve relationship paths. A proxy extension queries the graph — for example, whether a path exists between `user:Alice` and `document:123` via an organizational ownership chain — and injects the result as a pre-computed attribute on the request. The Cerbos policy evaluates a simple boolean rather than performing graph traversal, preserving PDP performance while supporting relationship-based access models.
+
+== Integration with Cerbos Hub
+
+Synapse connects to Cerbos Hub for policy distribution and audit logging. Hub pushes policy bundles to the in-process PDP, and decision logs stream back to Hub for audit and observability. The same deployment, policy store, and monitoring workflows used for standalone PDPs apply to Synapse instances.
+
+== Availability
+
+Cerbos Synapse is available as part of the Cerbos platform. https://cerbos.dev/contact[Contact the Cerbos team] for access and deployment guidance.

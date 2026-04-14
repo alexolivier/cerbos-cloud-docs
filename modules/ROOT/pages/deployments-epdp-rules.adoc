@@ -312,7 +312,7 @@ The https://www.npmjs.com/package/@cerbos/embedded-client[@cerbos/embedded-clien
 npm install @cerbos/embedded-client @cerbos/embedded-server
 ----
 
-The `@cerbos/embedded-server` package contains the WebAssembly module that executes policy evaluation.
+The `@cerbos/embedded-server` package contains the WebAssembly module that executes policy evaluation. This module is the decision engine only — it does not contain your policies. Policies are fetched separately from Cerbos Hub at runtime by `@cerbos/embedded-client` and stored in memory. When policies change in Cerbos Hub, updated bundles are downloaded automatically without requiring a server restart or redeployment.
 
 === Initializing the client
 
@@ -518,7 +518,7 @@ To change scopes, create a new client instance. Scopes cannot be changed on an e
 
 === Automatic bundle updates
 
-The SDK polls Cerbos Hub for bundle updates. When policies change and a new bundle is available, it is downloaded and activated automatically.
+The SDK polls Cerbos Hub for bundle updates. When policies change and a new bundle is available, it is downloaded and activated automatically. No server restart or redeployment is required — the update happens transparently in the background.
 
 The default polling interval is 60 seconds. Configure a different interval:
 
@@ -722,7 +722,7 @@ const cerbos = new Embedded({
 });
 ----
 
-When `@cerbos/embedded-server` is upgraded, re-run `npm install` (or your package manager's install command) so the copied WASM binary matches the installed version.
+The WASM file only changes when you upgrade the `@cerbos/embedded-server` package — it does not change when policies are updated. Re-run `npm install` (or your package manager's install command) after upgrading to ensure the copied binary matches the installed version.
 
 ==== Node.js
 
