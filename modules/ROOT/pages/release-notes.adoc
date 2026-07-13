@@ -8,7 +8,7 @@
 
 [#_workspace_issues]
 
-The issues bar in Cerbos Hub now flags problems with your deployment workspaces, so you can catch and fix them without digging through settings. It surfaces blocked API keys, deployments that have been mapped to a new store but have not activated a new build for 15 minutes, and stores that are failing to sync with GitHub. Each issue links through to the relevant page for the details. The separate issues page has been removed, since the issues bar already appears on every page.
+The issues bar in Cerbos Hub now flags problems with your deployment workspaces, so you can catch and fix them without digging through settings. It surfaces blocked API keys, deployments that have been mapped to a new store but have not activated a new build for 15 minutes, and stores that are failing to sync with GitHub. Each issue links through to the relevant page for the details.
 
 == 2026-07-08
 
