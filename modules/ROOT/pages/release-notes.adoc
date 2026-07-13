@@ -1,5 +1,25 @@
 = Release notes
 
+== 2026-07-13
+
+[#_2026_07_13]
+
+=== Issues surfaced for your workspaces
+
+[#_workspace_issues]
+
+The issues bar in Cerbos Hub now flags problems with your deployment workspaces, so you can catch and fix them without digging through settings. It surfaces blocked API keys, deployments that have been mapped to a new store but have not activated a new build for 15 minutes, and stores that are failing to sync with GitHub. Each issue links through to the relevant page for the details.
+
+== 2026-07-08
+
+[#_2026_07_08]
+
+=== Audit log entries with empty values now display correctly
+
+[#_audit_log_empty_values]
+
+Fixed an issue where an audit log entry containing an empty (null) value could fail to load. These entries now render correctly, so no decision is missing from your audit trail.
+
 == 2026-06-30
 
 [#_2026_06_30]
