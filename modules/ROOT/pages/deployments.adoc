@@ -73,6 +73,17 @@ Whenever Cerbos Hub detects a change in any policy store connected to a deployme
 . **Test execution**: After successful compilation, Cerbos Hub runs all policy tests found across the contributing stores. Failures are displayed with full logs for debugging.
 . **Bundle generation**: When compilation and tests pass, the bundle is generated and all PDPs assigned to this deployment receive a push notification to download and activate the new bundle immediately.
 
+== Workspace issues
+
+Cerbos Hub continuously checks your workspace for problems that need attention and surfaces them in the *issues bar* shown across every page. When something needs looking at, the issues bar highlights it, and each issue links through to the relevant page so you can resolve it. The following conditions raise an issue:
+
+[unordered.stack]
+Blocked API keys:: One or more of the API keys used to connect PDPs or collect audit logs have been blocked and need to be rotated or re-enabled.
+Stalled deployment:: A deployment has been mapped to a new policy store but no new build has been activated for it in the last 15 minutes, so connected PDPs may still be serving an older bundle.
+Store sync failures:: A xref:policy-stores-git-github.adoc[GitHub-connected policy store] is failing to sync, so recent changes in the repository are not being picked up.
+
+See xref:troubleshooting.adoc[Troubleshooting] for guidance on resolving these conditions.
+
 == Build details
 
 Click on any build reference to view detailed information about that specific build.
