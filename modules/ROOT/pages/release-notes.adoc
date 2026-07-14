@@ -223,8 +223,6 @@ Key capabilities:
 
 A new JavaScript SDK (`@cerbos/embedded-client`) replaces the previous `@cerbos/embedded` package, with support for automatic bundle updates, deferred activation, and improved error handling. See the xref:deployments-epdp-rules.adoc#_javascript_sdk[SDK documentation] for migration details.
 
-The previous ePDP implementation remains available for existing users. See xref:legacy/decision-points-embedded.adoc[legacy documentation] for reference.
-
 == 2026-01-21
 
 === Permissions matrix view

@@ -44,14 +44,4 @@
 * Integrations
 ** xref:integrations-aperture.adoc[Aperture by Tailscale]
 * xref:troubleshooting.adoc[Troubleshooting]
-* xref:migration-legacy.adoc[Migrating from legacy workspaces]
-* Legacy
-** xref:legacy/concepts.adoc[Concepts]
-** xref:legacy/getting-started.adoc[Getting started]
-** xref:legacy/audit-log-collection.adoc[Audit log collection]
-** xref:legacy/ci-cd.adoc[CI/CD pipeline]
-** xref:legacy/deployment-labels.adoc[Deployment labels]
-** xref:legacy/decision-points.adoc[Policy Decision Points (PDPs)]
-*** xref:legacy/decision-points-service.adoc[Service]
-*** xref:legacy/decision-points-embedded.adoc[Embedded]
 * xref:release-notes.adoc[Release notes]
