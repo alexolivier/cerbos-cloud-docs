@@ -21,6 +21,8 @@ To set up the GitHub integration, follow these steps:
   image:policy_store_github_connection_setup.png[alt="GitHub connection setup",role="center-img"]
 7. Click "Save" to complete the setup.
 
+NOTE: If you have an IP allow list for your GitHub organization, add `34.65.34.39` and `34.65.140.62` to allow Cerbos Hub to access your repository.
+
 == Syncing a subdirectory
 
 If your policies are stored in a subdirectory of your repository, you can configure the store to sync only that path. This is useful when your authorization policies are part of a larger monorepo or when you want to organize policies into separate directories.
