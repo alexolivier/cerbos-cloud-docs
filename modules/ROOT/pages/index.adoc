@@ -11,7 +11,7 @@ Cerbos Hub is an end-to-end authorization platform comprising a policy control p
 |**Cerbos Hub** — Policy Administration Point
 |Control plane for policy authoring, testing, versioning, distribution, and audit visibility.
 
-|**xref:synapse.adoc[Cerbos Synapse]** — Data and integration layer
+|**xref:synapse:ROOT:index.adoc[Cerbos Synapse]** — Data and integration layer
 |Enrichment layer that gathers identity and resource data from existing systems and delivers complete context to the policy engine. https://cerbos.dev/contact[Contact the Cerbos team] for access.
 
 |**Cerbos PDP** — Policy Decision Point
@@ -60,4 +60,4 @@ Optionally, configure Cerbos Hub as an audit backend for the PDPs. Logs are stre
 * xref:getting-started.adoc[Quick start guide] — Create a policy store, deployment, and connect your first PDP.
 * xref:decision-points.adoc[Service PDPs] — Production deployment patterns for server-side authorization.
 * xref:deployments-epdp-rules.adoc[Embedded PDPs] — Client-side authorization for browsers and edge functions.
-* xref:synapse.adoc[Synapse] — Authorization data enrichment and infrastructure integrations.
+* xref:synapse:ROOT:index.adoc[Synapse] — Authorization data enrichment and infrastructure integrations.

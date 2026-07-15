@@ -34,7 +34,7 @@ The Policies tab of a xref:deployments.adoc[deployment] now has a *Source* / *Ef
 
 [#_distribution_licence_keys]
 
-Organizations with xref:synapse.adoc[Cerbos Synapse] access can now manage their distribution licence key from organization settings. A licence key authenticates your Synapse instances with the Cerbos distribution registry so they can pull updates, used as the password for `docker login` against the registry endpoint shown in Hub. You can generate a key, rotate it with a configurable grace period (up to 12 hours) during which the previous key keeps working, and revoke it immediately. Synapse is enabled per organization; https://cerbos.dev/contact[contact the Cerbos team] for access.
+Organizations with xref:synapse:ROOT:index.adoc[Cerbos Synapse] access can now manage their xref:distribution-licence.adoc[distribution licence key] from organization settings. A licence key authenticates your Synapse instances with the Cerbos distribution registry so they can pull updates, used as the password for `docker login` against the registry endpoint shown in Hub. You can generate a key, rotate it with a configurable grace period (up to 12 hours) during which the previous key keeps working, and revoke it immediately. Synapse is enabled per organization; https://cerbos.dev/contact[contact the Cerbos team] for access.
 
 == 2026-06-18
 
