@@ -64,6 +64,12 @@ Scope:: Effects reflect the selected scope only. Because https://docs.cerbos.dev
 Derived roles:: Derived role rules are shown only in their own cells. They are not reflected in the cells of the parent roles they extend.
 Custom roles:: Role policy rules are shown only in their own cells. They are not reflected in the other cells whose effects they restrict.
 
+=== Downloading policies
+
+The Policies tab also has a *Download policies* button, which gives you the policy files from the build as a zip archive. Inside the archive, files are grouped into a folder per contributing store and keep the paths they have within that store, so you can tell where each policy came from when a deployment draws on more than one.
+
+The download follows the bundle selector, so switch to an earlier build to download exactly the files that build was running. Use this to review a build away from Hub, compare it against your policy repository, or keep a record of what was deployed.
+
 == Build life cycle
 
 Whenever Cerbos Hub detects a change in any policy store connected to a deployment, it launches a new policy build.

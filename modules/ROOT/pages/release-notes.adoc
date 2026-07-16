@@ -8,7 +8,7 @@
 
 [#_download_deployment_policies]
 
-The Policies tab of a xref:deployments.adoc[deployment] now has a *Download policies* button that gives you the policy files from the deployed build as a zip archive. The archive keeps the files grouped by the store and version they came from, so you get an exact copy of what the deployment is running. This is useful for reviewing a build offline, comparing it against your repository, or keeping a record of what was deployed.
+The Policies tab of a xref:deployments.adoc#_downloading_policies[deployment] now has a *Download policies* button that gives you the policy files from the deployed build as a zip archive. The archive groups the files into a folder per contributing store, so you get an exact copy of what the deployment is running and can tell where each policy came from. This is useful for reviewing a build offline, comparing it against your repository, or keeping a record of what was deployed.
 
 == 2026-07-13
 
