@@ -21,7 +21,22 @@ To set up the GitHub integration, follow these steps:
   image:policy_store_github_connection_setup.png[alt="GitHub connection setup",role="center-img"]
 7. Click "Save" to complete the setup.
 
-NOTE: If you have an IP allow list for your GitHub organization, add `34.65.34.39` and `34.65.140.62` to allow Cerbos Hub to access your repository.
+== GitHub organization IP allow lists
+
+If your GitHub organization has an IP allow list enabled, you must permit the addresses Cerbos Hub connects from. Otherwise connecting the repository fails, and any store that is already connected stops syncing, with GitHub rejecting the request with a `403` response.
+
+The current addresses are `34.65.34.39` and `34.65.140.62`. Cerbos Hub also shows them while you connect a repository — both when installing the GitHub App and when choosing the repository — so you can copy them without leaving the flow.
+
+To manage your allow list automatically, fetch the addresses from https://hub.cerbos.cloud/meta[hub.cerbos.cloud/meta], which returns them as an `egressIps` array:
+
+[source,json]
+----
+{"egressIps":["34.65.34.39","34.65.140.62"]}
+----
+
+TIP: Treat that endpoint as the source of truth rather than hard-coding the addresses into your own configuration.
+
+NOTE: This allow list is unrelated to the xref:deployments-epdp-rules.adoc#_ip_allowlist[IP allowlist on an ePDP rule], which controls who may download embedded PDP bundles from Cerbos Hub.
 
 == Syncing a subdirectory
 

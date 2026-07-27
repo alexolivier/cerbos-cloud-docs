@@ -123,6 +123,14 @@ PDP crashed before sync:: Logs are periodically synced to Cerbos Hub. If the PDP
 
 == GitHub integration issues
 
+=== Repository access blocked by an organization IP allow list
+
+*Symptoms*: Connecting a repository fails, or a connected store stops syncing, and GitHub rejects the request with a `403` mentioning that your organization has an IP allow list enabled.
+
+*Cause and solution*: Cerbos Hub connects to GitHub from a fixed set of addresses, which your organization's allow list must permit. Add them as described in xref:policy-stores-git-github.adoc#_github_organization_ip_allow_lists[GitHub organization IP allow lists], or fetch them from https://hub.cerbos.cloud/meta[hub.cerbos.cloud/meta] if you manage the allow list automatically.
+
+NOTE: This is a different setting from the ePDP rule allowlist covered under <<_bundle_fetch_fails_in_browser,Bundle fetch fails in browser>>. That one governs who may download bundles from Cerbos Hub; this one governs whether Cerbos Hub may reach your repository.
+
 === Builds aren't triggered when multiple tags are pushed
 
 GitHub has a link:https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#push[known limitation] where connected apps like Cerbos Hub won't receive notifications for repository changes if more than three tags are pushed simultaneously. To avoid this issue, limit the maximum number of references pushed at once to three. See the link:https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/managing-the-push-policy-for-your-repository#limiting-how-many-branches-and-tags-can-be-updated-in-a-single-push[GitHub documentation] for configuration details.
