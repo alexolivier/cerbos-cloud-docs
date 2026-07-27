@@ -1,0 +1,30 @@
+= Distribution licence
+
+Commercial Cerbos components are distributed as container images and Helm charts from the Cerbos distribution registry. Each organization authenticates to the registry with a *distribution licence key*, which you manage from the *Distribution licence* section of your organization settings in Cerbos Hub. Your specific registry endpoint is shown alongside the licence key in Hub; use that value in place of `<distribution-registry>` below.
+
+xref:synapse:ROOT:index.adoc[Cerbos Synapse] is currently distributed this way: a licence key is required to pull the xref:synapse:ROOT:install/container.adoc[Synapse container image] and the xref:synapse:ROOT:install/helm.adoc[Synapse Helm chart].
+
+== Issuing and using a key
+
+Generate a distribution licence key from the *Distribution licence* section of your organization settings. The key is used as the password when authenticating to the registry — the username is your organization ID:
+
+[source,bash]
+----
+docker login <distribution-registry> \
+  --username=<your-organization-id> \
+  --password=<distribution-licence-key>
+----
+
+Treat the key like a secret. Anything that needs to pull images from the registry — your CI pipeline, container runtime, or local environment — uses it to authenticate. A key may be issued with or without an expiry; if it has an expiry, the registry stops accepting it after that time.
+
+== Rotating a key
+
+Rotating issues a new key while keeping the current one valid for a configurable grace period (up to 12 hours), so you can roll the new key out to your deployments before the old one stops working. Set the grace period to zero to revoke the previous key immediately. Already-running instances are unaffected during the grace period; only new registry pulls require the new key once the old one is revoked.
+
+== Revoking a key
+
+Revoking invalidates the current key immediately and cannot be undone. Running instances keep working, but any new registry pull — for example pulling an updated Synapse image — fails until a new key is issued and configured. Revoke a key if you believe it has been exposed, then generate a replacement.
+
+== Availability
+
+The distribution licence section appears for organizations with access to commercial Cerbos components. https://cerbos.dev/contact[Contact the Cerbos team] for access.

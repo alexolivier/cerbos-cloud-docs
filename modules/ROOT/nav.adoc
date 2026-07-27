@@ -1,3 +1,9 @@
+.Cerbos platform
+* xref:cerbos:ROOT:what-is-cerbos.adoc[Cerbos PDP]
+* xref:cerbos-hub:ROOT:index.adoc[Cerbos Hub]
+* xref:synapse:ROOT:index.adoc[Cerbos Synapse]
+* https://www.cerbos.dev/ecosystem[Cerbos integrations]
+
 * xref:index.adoc[Introduction]
 * xref:concepts.adoc[Concepts]
 * xref:playground.adoc[Playgrounds]
@@ -33,12 +39,12 @@
 * Policy Decision Points (PDPs)
 ** xref:decision-points.adoc[Service]
 ** xref:deployments-epdp-rules.adoc[Embedded]
-* xref:synapse.adoc[Synapse]
 * xref:audit-log-collection.adoc[Audit log collection]
 * xref:usage-dashboard.adoc[Usage dashboard]
 * xref:insights.adoc[Insights]
 * xref:administration.adoc[Administration]
 ** xref:user-management.adoc[User management]
+** xref:distribution-licence.adoc[Distribution licence]
 * xref:reliability.adoc[Reliability]
 * xref:on-premises.adoc[On-premises deployment]
 * Integrations

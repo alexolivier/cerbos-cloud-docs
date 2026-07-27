@@ -1,3 +1,4 @@
 = Administration
 
 - xref:user-management.adoc[User management]
+- xref:distribution-licence.adoc[Distribution licence]

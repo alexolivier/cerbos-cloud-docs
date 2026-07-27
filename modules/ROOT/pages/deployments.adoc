@@ -51,7 +51,7 @@ This gives you an at-a-glance view of a resource's effective permissions without
 
 Cells also indicate where a wildcard rule widens a match. A rule written against `+*+` or a pattern such as `foo:*` can apply to more specific actions or roles, and the matrix flags the cells that are influenced by such a rule so the broader grant is visible rather than hidden. This is an indication of which rules _match_ a cell, not a full partial evaluation of the policy.
 
-https://docs.cerbos.dev/cerbos/latest/policies/derived_roles.html[Derived roles] and the custom roles defined by https://docs.cerbos.dev/cerbos/latest/policies/role_policies.html[role policies] each appear as their own rows rather than being folded into the roles they build on. A role policy narrows access rather than granting it, allowing an action only when it is permitted by both the role policy and a matching resource policy rule.
+xref:cerbos:policies:derived_roles.adoc[Derived roles] and the custom roles defined by xref:cerbos:policies:role_policies.adoc[role policies] each appear as their own rows rather than being folded into the roles they build on. A role policy narrows access rather than granting it, allowing an action only when it is permitted by both the role policy and a matching resource policy rule.
 
 To focus on part of a large matrix, filter by role or action, and select a cell to drill into the underlying rules — including any conditions — that produce its effect.
 
@@ -60,7 +60,7 @@ To focus on part of a large matrix, filter by role or action, and select a cell 
 The matrix highlights the rules that match each cell rather than fully evaluating the policy, so keep these limitations in mind when reading it:
 
 [unordered.stack]
-Scope:: Effects reflect the selected scope only. Because https://docs.cerbos.dev/cerbos/latest/policies/scoped_policies.html[scoped policies] can override the effects defined higher in the scope hierarchy, switch scopes to review each one in turn.
+Scope:: Effects reflect the selected scope only. Because xref:cerbos:policies:scoped_policies.adoc[scoped policies] can override the effects defined higher in the scope hierarchy, switch scopes to review each one in turn.
 Derived roles:: Derived role rules are shown only in their own cells. They are not reflected in the cells of the parent roles they extend.
 Custom roles:: Role policy rules are shown only in their own cells. They are not reflected in the other cells whose effects they restrict.
 
