@@ -1,5 +1,15 @@
 = Release notes
 
+== 2026-07-27
+
+[#_2026_07_27]
+
+=== Cerbos Hub egress IP addresses shown when connecting a GitHub repository
+
+[#_github_egress_ips]
+
+If your GitHub organization restricts access with an IP allow list, the xref:policy-stores-git-github.adoc#_github_organization_ip_allow_lists[GitHub connection flow] now tells you which IP addresses Cerbos Hub connects from, so you can add them without leaving the wizard. The addresses are shown both when installing the GitHub App and when picking a repository, which means you see them even if the app is already installed. They are also published in machine-readable form at https://hub.cerbos.cloud/meta[hub.cerbos.cloud/meta], so you can keep your allow list up to date automatically.
+
 == 2026-07-16
 
 [#_2026_07_16]
