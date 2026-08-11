@@ -10,7 +10,7 @@ With Cerbos Hub:
 
 [horizontal]
 Pre-compiled bundles:: Policies are compiled once by Cerbos Hub and pushed as optimized bundles. PDPs skip parsing and compilation entirely, reducing startup time and memory usage.
-Instant fleet-wide updates:: Push-based distribution means all PDPs receive updates within seconds—no polling delays or staggered rollouts.
+Instant fleet-wide updates:: Push-based distribution means all PDPs receive updates within seconds, with no polling delays or staggered rollouts.
 Validated before deployment:: Policies are tested automatically before distribution. Failed tests block deployment, preventing broken policies from reaching production.
 Centralized visibility:: Monitor all connected PDPs from a single dashboard. See which version each instance is running, when it last connected, and access its audit logs.
 Built-in resilience:: PDPs cache bundles locally and continue operating if the Cerbos Hub API is temporarily unavailable. New instances can start immediately using bundles served from a CDN, independent of the API.
@@ -35,7 +35,7 @@ Service PDPs handle thousands of authorization checks per second. The compiled p
 
 === Data-sensitive environments
 
-All authorization data stays within your network. Cerbos Hub only pushes policy bundles—your request data, principal attributes, and resource attributes never leave your infrastructure.
+All authorization data stays within your network. Cerbos Hub only pushes policy bundles; your request data, principal attributes, and resource attributes never leave your infrastructure.
 
 == How it works
 
@@ -156,7 +156,7 @@ To generate client credentials:
 . Select the **Client credentials** tab
 . Click **Generate a client credential**
 . Choose **Read only** for PDPs that only need to receive bundles
-. Save the client secret—it cannot be recovered after creation
+. Save the client secret; it cannot be recovered after creation
 
 == Production deployment
 

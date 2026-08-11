@@ -1,6 +1,6 @@
 = Policy stores: file rules and limits
 
-A policy store accepts a specific set of files and enforces size and count limits. A real policy repository usually also contains CI configuration, documentation, and hidden files, so this page defines exactly what a store accepts and how the upload commands behave, so uploads are predictable rather than discovered through failures.
+A policy store accepts only certain files and enforces size and count limits. A real policy repository usually also contains CI configuration, documentation, and hidden files, so this page sets out what a store accepts, how the upload commands behave, and the limits that apply.
 
 == Accepted files
 
