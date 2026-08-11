@@ -1,5 +1,17 @@
 = Release notes
 
+== 2026-08-11
+
+[#_2026_08_11]
+
+=== Export audit logs from Cerbos Hub
+
+[#_audit_log_exports]
+
+You can now take your decision and access logs out of Cerbos Hub for long-term archiving or analysis in your own tooling. Press *Export* on the xref:audit-log-collection.adoc#_accessing_the_logs[Audit logs] page and the export is queued in the background using the time range and filters you already have applied, so you get exactly the entries you were looking at. A new *Exports* tab lists every export with its status, the filters it used and its expiry date, and offers a download button as soon as it is ready. Exporting is available to workspace and organization Owners.
+
+Exports are encrypted with https://age-encryption.org[age] before they leave Cerbos Hub. You can supply your own public key, or let Cerbos Hub generate a key pair for you and save it when the export starts — the secret key is never retained by Cerbos Hub, so store it somewhere safe. Expanding a row on the Exports tab shows the exact command to decrypt and read the file, which contains your log entries as gzip-compressed JSON Lines. Completed exports remain available to download for seven days, and a failed export can be retried with the same filters in one click.
+
 == 2026-07-27
 
 [#_2026_07_27]
