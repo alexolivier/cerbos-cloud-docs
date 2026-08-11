@@ -71,6 +71,12 @@ The panel displays:
 
 Click **+ Add action** to test additional actions, or **Create auxiliary data fixtures** to add test data for your evaluations.
 
+=== Schema validation
+
+If your policies reference xref:cerbos:policies:schemas.adoc[schemas], the principal and resource you select are validated against them when the request is evaluated. Any violation is reported in an alert directly beneath the relevant fixture selector, listing the attribute paths that failed and why. Validation problems with the request as a whole are reported the same way, above the list of actions.
+
+While a validation error is outstanding, every action is shown in an undetermined state rather than as `ALLOW` or `DENY`. This distinguishes a request that could not be meaningfully evaluated from one that was genuinely denied, which is easy to misread otherwise. Correct the fixture, or adjust the schema, and the effects are recalculated immediately.
+
 === Permissions matrix view
 
 The matrix view displays permission evaluation results in a comprehensive grid format, showing how policies affect different principal and resource combinations at a glance. This is useful for:
@@ -85,10 +91,24 @@ Toggle between the standard explore view and the matrix view using the view sele
 
 The bottom panel shows test execution results with two tabs:
 
-* **Problems**: Displays any syntax errors or validation issues in your policies.
+* **Problems**: Displays any syntax errors or compilation issues in your policies. See <<_problems,Problems>> below.
 * **Test results**: Shows the outcome of all policy tests. Filter by **Passed**, **Failed**, **Skipped**, or **Errored** to focus on specific results.
 
 Click on any test file to see detailed results. For failed tests, a side-by-side diff view highlights the differences between expected and actual outputs.
+
+=== Problems
+
+The Problems tab lists everything that prevented your policies from compiling, grouped by file. Each entry gives the kind of error, the line and column it occurred at, and a description of what went wrong. Click an entry to jump straight to that position in the editor, where the same errors are also marked inline on the offending lines.
+
+Diagnostics cover the full range of compilation failures, not just malformed YAML:
+
+* Invalid xref:cerbos:policies:conditions.adoc[condition expressions], including expressions that parse but fail to compile.
+* Undefined, redefined, cyclical, or invalidly named xref:cerbos:policies:variables.adoc#variables[variables] and xref:cerbos:policies:variables.adoc#constants[constants].
+* Unknown or ambiguous xref:cerbos:policies:derived_roles.adoc[derived roles].
+* Imports that cannot be resolved, and problems with xref:cerbos:policies:scoped_policies.adoc[scoped policies] and scope inheritance.
+* Invalid xref:cerbos:policies:schemas.adoc[schema] references, empty xref:cerbos:policies:outputs.adoc[outputs], and malformed resource rules.
+
+Where a problem relates to a documented policy feature, the entry links to the relevant page of the Cerbos policy documentation, so you can go from the error to the reference material without searching for it.
 
 == Execution traces
 

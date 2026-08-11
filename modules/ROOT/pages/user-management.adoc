@@ -120,6 +120,12 @@ Permissions assigned at the organization level are inherited by all workspaces. 
 |✅
 |❌
 
+|Export audit logs
+|✅
+|❌
+|❌
+|❌
+
 |Manage API keys
 |✅
 |✅
