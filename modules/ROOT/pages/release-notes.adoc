@@ -1,5 +1,29 @@
 = Release notes
 
+== 2026-08-11
+
+[#_2026_08_11]
+
+=== Export audit logs from Cerbos Hub
+
+[#_audit_log_exports]
+
+You can now take your decision and access logs out of Cerbos Hub for long-term archiving or analysis in your own tooling. Press *Export* on the xref:audit-log-collection.adoc#_exporting_logs[Audit logs] page and the export is queued in the background using the time range and filters you already have applied, so you get exactly the entries you were looking at. A new *Exports* tab lists every export with its status, the filters it used and its expiry date, and offers a download button as soon as it is ready. Exporting is available to workspace and organization Owners.
+
+Exports are encrypted with https://age-encryption.org[age] before they leave Cerbos Hub. You can supply your own public key, or let Cerbos Hub generate a key pair for you and save it when the export starts — the secret key is never retained by Cerbos Hub, so store it somewhere safe. Expanding a row on the Exports tab shows the exact command to decrypt and read the file, which contains your log entries as gzip-compressed JSON Lines. Completed exports remain available to download for seven days, and a failed export can be retried with the same filters in one click.
+
+=== Clearer policy compilation errors in playgrounds
+
+[#_playground_compile_diagnostics]
+
+Compilation problems in a xref:playground.adoc[playground] are now reported where they actually occur. Each error is marked inline on the offending line in the editor, and the xref:playground.adoc#_problems[Problems] panel shows its line and column alongside a fuller description, so you can click through to the exact source rather than hunting for it. Several classes of problem that were previously reported vaguely — or not at all — are now surfaced properly, including invalid expressions in conditions, undefined or redefined variables and constants, unknown and ambiguous derived roles, and problems with scopes and imports. Where a diagnostic relates to a documented concept, it links straight to the relevant Cerbos policy documentation.
+
+=== Schema validation errors shown in playgrounds
+
+[#_playground_schema_validation]
+
+If a principal or resource fixture does not satisfy the schema attached to your policy, the xref:playground.adoc#_schema_validation[Explore tab] now says so directly beneath the fixture selector. Previously a schema violation would quietly influence the outcome, leaving you to work out why a check did not behave as expected. Actions affected by the failure are left in an undetermined state until the error is resolved, making it clear that the result is a fixture problem rather than a policy decision, and validation errors on the request itself are reported the same way above the action results.
+
 == 2026-07-27
 
 [#_2026_07_27]
