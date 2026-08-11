@@ -127,6 +127,53 @@ The access logs are records of all the API requests received by the Cerbos PDP. 
 
 You can filter the logs by a particular PDP and a time range.
 
+== Exporting logs
+
+Decision and access logs can be exported from Cerbos Hub as files, for long-term archiving or for analysis in your own tooling. Exports are encrypted before they leave Cerbos Hub, so only you can read them.
+
+NOTE: Exporting requires the `Owner` role in the workspace or the organization. See xref:user-management.adoc[User management] for the full permissions matrix. Exports are not available for xref:on-premises.adoc[on-premises deployments], where the audit log data already resides in your own infrastructure.
+
+=== Starting an export
+
+Apply the filters and time range you want on the _Decision logs_ or _Access logs_ tab, then click **Export**. The export dialog shows the filters that will be applied, so you can confirm you are exporting the entries you were looking at, and lets you adjust the time range before confirming. If you have not selected a time range, the export defaults to the last 24 hours.
+
+Exports are produced in the background. Click **Add to export queue** to start one, then follow its progress on the _Exports_ tab. You do not need to keep the page open.
+
+=== Encryption keys
+
+Every export is encrypted with https://age-encryption.org[age] before it is written to storage. You need the corresponding secret key to read the file afterwards.
+
+* **If you already have an age key pair**, paste the public portion (it begins with `age1`) into the *Public encryption key* field when starting the export.
+* **If you leave the field blank**, Cerbos Hub generates a key pair for you and displays it once, immediately after the export is queued. Copy both parts, or click **Download key pair** to save them as an `age.key` file in the format the `age` tools expect.
+
+WARNING: Cerbos Hub does not retain the secret key, and it cannot be recovered or reissued. If you lose it, the export cannot be decrypted and you will need to run a new one. Store it somewhere safe, such as your organization's secret manager.
+
+=== The Exports tab
+
+The _Exports_ tab lists every export requested in the workspace, showing the log type, who requested it, when it was created, when it expires, the public key it was encrypted for, and its status:
+
+* **In progress**: the export has been queued or is being generated. The list refreshes automatically while any export is in this state.
+* **Ready**: the export is complete. Click **Download** to retrieve the file.
+* **Failed**: the export could not be completed. Click **Retry** to reopen the export dialog with the same filters and time range already applied.
+* **Expired**: the file is past its retention period and is no longer available. Run a new export to obtain the same data.
+
+Expand a row to see the time range and filters the export was created with, the public key used to encrypt it, and the exact command needed to decrypt it.
+
+=== Downloading and decrypting
+
+The downloaded file is age-encrypted and gzip-compressed, and contains the exported entries as JSON Lines — one JSON object per log entry. To decrypt and read it, save your secret key as `age.key` and run:
+
+[source,sh]
+----
+age -d -i age.key <exported-file> | gunzip
+----
+
+Because the output is JSON Lines, it can be piped directly into tools such as `jq`, or loaded into a data warehouse or SIEM without further conversion.
+
+=== Retention
+
+Completed exports remain available to download for seven days from the time they were generated. After that, the file is deleted and the export is marked as expired. Expiry applies only to the exported file — the underlying audit log data is unaffected and continues to be retained according to your plan, so the export can be re-created as long as the entries are still within that retention period.
+
 == Masking sensitive fields
 
 You can define masks to filter out sensitive or personally identifiable information (PII) that might be included in the audit log entries. Masked fields are removed locally at the PDP and are never transmitted to Cerbos Hub.
