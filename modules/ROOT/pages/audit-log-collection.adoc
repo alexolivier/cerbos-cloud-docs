@@ -166,7 +166,7 @@ audit:
 
 TIP: Use the xref:cerbos:configuration:audit.adoc#local[`local` audit backend] along with xref:cerbos:cli:cerbosctl.adoc#audit[cerbosctl audit commands] to inspect your audit logs locally and determine the paths that need to be masked.
 
-CAUTION: In order to avoid slowing down request processing and to avoid any data losses, raw log entries are stored locally on disk at the storage path. The masks are applied later by the background process that syncs the on-disk log entries to Cerbos Hub. To avoid storing authentication tokens and other sensitive request parameters locally, use the top-level `includeMetadataKeys` and `excludeMetadataKeys` settings. Refer to xref:cerbos:configuration:audit.adoc[Cerbos audit configuration] for more details.
+NOTE: Masks are applied before each entry is written to the local buffer on disk, so masked fields are neither stored locally nor transmitted to Cerbos Hub. To drop whole metadata keys such as authentication tokens, rather than mask specific field paths, use the top-level `includeMetadataKeys` and `excludeMetadataKeys` settings. Refer to xref:cerbos:configuration:audit.adoc[Cerbos audit configuration] for more details.
 
 == Data storage
 

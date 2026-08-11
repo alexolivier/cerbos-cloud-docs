@@ -236,21 +236,6 @@ storage:
 
 Mount a persistent volume at this path when running in containers or Kubernetes.
 
-=== Offline mode
-
-In disaster recovery scenarios, start the PDP with the cached bundle:
-
-[source,shell]
-----
-docker run --rm --name cerbos \
-  -p 3592:3592 -p 3593:3593 \
-  -e CERBOS_HUB_OFFLINE=true \
-  -v /var/cerbos/hub:/var/cerbos/hub \
-  ghcr.io/cerbos/cerbos:latest server --config=/conf/.cerbos.yaml
-----
-
-The PDP loads the cached bundle and serves requests without connecting to Cerbos Hub.
-
 === Fallback to git
 
 As a last resort, switch the PDP to use the git storage driver and read policies directly from your policy repository:
