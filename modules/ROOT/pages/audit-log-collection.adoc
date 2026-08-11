@@ -161,7 +161,7 @@ Expand a row to see the time range and filters the export was created with, the 
 
 === Downloading and decrypting
 
-The downloaded file is age-encrypted and gzip-compressed, and contains the exported entries as JSON Lines — one JSON object per log entry. To decrypt and read it, save your secret key as `age.key` and run:
+The downloaded file is age-encrypted and gzip-compressed, and contains the exported entries as JSON Lines, one JSON object per log entry. To decrypt and read it, save your secret key as `age.key` and run:
 
 [source,sh]
 ----
@@ -172,7 +172,7 @@ Because the output is JSON Lines, it can be piped directly into tools such as `j
 
 === Retention
 
-Completed exports remain available to download for seven days from the time they were generated. After that, the file is deleted and the export is marked as expired. Expiry applies only to the exported file — the underlying audit log data is unaffected and continues to be retained according to your plan, so the export can be re-created as long as the entries are still within that retention period.
+Completed exports remain available to download for seven days from the time they were generated. After that, the file is deleted and the export is marked as expired. Expiry applies only to the exported file; the underlying audit log data is unaffected and continues to be retained according to your plan, so the export can be re-created as long as the entries are still within that retention period.
 
 == Masking sensitive fields
 
