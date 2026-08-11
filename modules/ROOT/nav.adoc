@@ -35,6 +35,7 @@
 *** xref:policy-stores-cli-homebrew.adoc[Homebrew]
 *** xref:policy-stores-cli-npx.adoc[npx]
 ** xref:policy-stores-upload.adoc[Browser upload]
+** xref:policy-stores-file-rules.adoc[File rules and limits]
 * xref:deployments.adoc[Deployments]
 * Policy Decision Points (PDPs)
 ** xref:decision-points.adoc[Service]

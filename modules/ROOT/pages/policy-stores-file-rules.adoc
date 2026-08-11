@@ -1,0 +1,79 @@
+= Policy stores: file rules and limits
+
+A policy store accepts a specific set of files and enforces size and count limits. A real policy repository usually also contains CI configuration, documentation, and hidden files, so this page defines exactly what a store accepts and how the upload commands behave, so uploads are predictable rather than discovered through failures.
+
+== Accepted files
+
+Every file is checked against these rules when you upload:
+
+[unordered.stack]
+Extensions:: Only `.json`, `.yaml`, and `.yml` are accepted (the check is case-insensitive). Any other extension is unsupported: a `README.md`, `Makefile`, or `.go` file is not a store file.
+Hidden paths:: Any path with a component beginning with a dot is rejected, so `.git/`, `.github/`, and files such as `.gitlab-ci.yml` never enter the store.
+Schemas:: Files under `_schemas/` must be JSON. A YAML file under `_schemas/` is rejected.
+Test data:: Files under `testdata/` must be named `principals`, `resources`, or `auxdata` (the spellings `auxData` and `aux_data` are also accepted), with any accepted extension. Any other filename under `testdata/` is rejected.
+
+[NOTE]
+====
+There is no `.cerbosignore` or ignore-file mechanism. Filtering is exactly the extension, hidden-path, `_schemas`, and `testdata` rules above.
+====
+
+== Tests and the runtime bundle
+
+Keep tests and test data in the store alongside the policies they exercise. Test suites and `testdata/` fixtures are first-class store content, and Cerbos Hub runs them automatically. Two things are worth knowing:
+
+* *Tests run when a deployment builds a bundle, not when you upload.* Upload validates only that each file parses as a policy, schema, test suite, or fixture. The suites are executed later, when a deployment that references the store builds a bundle. A failing test blocks that bundle, and the previously built bundle stays active.
+* *Test files never reach the runtime bundle.* The bundle builder excludes test suites and `testdata/`, so including them in the store costs nothing at runtime and you do not need to strip them before uploading.
+
+== Uploading with the CLI
+
+The `cerbosctl hub store` commands operate on a store's files:
+
+[cols="1m,3",options="header"]
+|===
+| Command | Purpose
+
+| upload-git | Upload the files from a local Git working tree, attaching its commit details.
+| replace-files | Overwrite the whole store with the given set of files.
+| add-files | Add or update specific files.
+| delete-files | Remove specific files.
+| get-files | Download specific files.
+| list-files | List the files in the store.
+| download | Download the entire store.
+|===
+
+`replace-files` accepts a directory, a `.zip` archive, or `-` to read a zip from standard input:
+
+[source,sh]
+----
+cerbosctl hub store replace-files ./policies
+cerbosctl hub store replace-files policies.zip
+cat policies.zip | cerbosctl hub store replace-files -
+----
+
+Given a directory, `replace-files` zips the entire tree and uploads it, and the store classifies and filters the files on receipt. `add-files` instead filters as it walks the directory, dropping hidden and unsupported files before upload.
+
+=== How uploads handle rejected files
+
+The two bulk commands differ in how they treat a file that breaks a rule:
+
+[unordered.stack]
+replace-files:: A file with an unsupported extension, a hidden path, or a bad `testdata`/`_schemas` name is *skipped* and returned in an ignored-files list. The upload fails only when no usable files remain (`no usable files`). This makes it safe to point at a whole repository.
+add-files:: A rejected file fails the *entire batch*, and nothing is uploaded.
+
+A file that is otherwise valid but has invalid *contents* (a malformed policy, an invalid schema, or an invalid test suite, reported as `test suite is invalid`) is a hard failure in both commands. Content errors are never skipped.
+
+== Limits
+
+Uploads are bounded by these limits:
+
+[cols="2,1,3",options="header"]
+|===
+| Limit | Value | Applies to
+
+| Zipped upload size | 15 MiB | `replace-files`
+| File size | 5 MiB | every file
+| Total extracted size | 50 MiB | a `replace-files` archive
+| Path length | 1024 characters | every file path
+| Operations per batch | 25 | `add-files`, `delete-files`
+| Files per request | 10 | `get-files`
+|===
