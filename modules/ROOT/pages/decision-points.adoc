@@ -234,7 +234,7 @@ storage:
       cacheDir: /var/cerbos/hub # Directory to cache downloaded bundles
 ----
 
-Mount a persistent volume at this path when running in containers or Kubernetes.
+Mount a persistent volume at this path when running in containers or Kubernetes. Caching avoids re-downloading an unchanged bundle on restart. It does not enable an offline start: a PDP still contacts Cerbos Hub at startup to fetch its bundle, and fails to start if Hub cannot be reached. See xref:reliability.adoc[Reliability] for network requirements and connectivity monitoring.
 
 === Fallback to git
 

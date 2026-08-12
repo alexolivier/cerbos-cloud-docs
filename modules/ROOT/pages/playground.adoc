@@ -75,7 +75,7 @@ Click **+ Add action** to test additional actions, or **Create auxiliary data fi
 
 If your policies reference xref:cerbos:policies:schemas.adoc[schemas], the principal and resource you select are validated against them when the request is evaluated. Any violation is reported in an alert directly beneath the relevant fixture selector, listing the attribute paths that failed and why. Validation problems with the request as a whole are reported the same way, above the list of actions.
 
-While a validation error is outstanding, every action is shown in an undetermined state rather than as `ALLOW` or `DENY`. This distinguishes a request that could not be meaningfully evaluated from one that was genuinely denied, which is easy to misread otherwise. Correct the fixture, or adjust the schema, and the effects are recalculated immediately.
+While a validation error is outstanding, every action is shown in an undetermined state rather than as `ALLOW` or `DENY`. This distinguishes a request that could not be evaluated from one that was denied. Correct the fixture, or adjust the schema, and the effects are recalculated immediately.
 
 === Permissions matrix view
 
@@ -100,7 +100,7 @@ Click on any test file to see detailed results. For failed tests, a side-by-side
 
 The Problems tab lists everything that prevented your policies from compiling, grouped by file. Each entry gives the kind of error, the line and column it occurred at, and a description of what went wrong. Click an entry to jump straight to that position in the editor, where the same errors are also marked inline on the offending lines.
 
-Diagnostics cover the full range of compilation failures, not just malformed YAML:
+Diagnostics cover the full range of compilation failures, not only malformed YAML:
 
 * Invalid xref:cerbos:policies:conditions.adoc[condition expressions], including expressions that parse but fail to compile.
 * Undefined, redefined, cyclical, or invalidly named xref:cerbos:policies:variables.adoc#variables[variables] and xref:cerbos:policies:variables.adoc#constants[constants].

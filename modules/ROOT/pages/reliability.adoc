@@ -17,10 +17,10 @@ PDPs reach Cerbos Hub over outbound HTTPS on port 443. Allow these hosts through
 
 | cdn.cerbos.cloud
 | 443
-| Bootstrap bundle download at startup. Plain HTTPS.
+| All bundle content downloads: the bootstrap bundle at startup, and every bundle delivered by a subsequent policy update. Plain HTTPS.
 |===
 
-All connections to Cerbos Hub require TLS 1.3; a proxy that downgrades below TLS 1.3 is refused. The PDP honours the standard `HTTP_PROXY`, `HTTPS_PROXY` and `NO_PROXY` environment variables.
+All connections to Cerbos Hub require TLS 1.3; a proxy that downgrades below TLS 1.3 is refused. The PDP honors the standard `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` environment variables.
 
 == Push-based updates
 
