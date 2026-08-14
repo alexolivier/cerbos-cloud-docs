@@ -4,6 +4,8 @@
 * xref:synapse:ROOT:index.adoc[Cerbos Synapse]
 * https://www.cerbos.dev/ecosystem[Cerbos integrations]
 
+//-
+
 * xref:index.adoc[Introduction]
 * xref:concepts.adoc[Concepts]
 * xref:playground.adoc[Playgrounds]
