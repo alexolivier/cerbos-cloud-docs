@@ -11,7 +11,7 @@
 [horizontal]
 Invalid credentials:: Verify the client ID and client secret are correct. Generate new credentials from the deployment's **Client credentials** tab if needed.
 Wrong deployment ID:: Confirm the deployment ID matches the deployment you want to connect to. Find the ID on the deployment detail page.
-Network restrictions:: Ensure outbound HTTPS (port 443) is allowed to Cerbos Hub endpoints. Check firewalls, security groups, and network policies.
+Network restrictions:: Ensure outbound HTTPS (port 443) is allowed to the Cerbos Hub hosts (`api.cerbos.cloud` and `cdn.cerbos.cloud`); see xref:reliability.adoc#network-requirements[Network requirements]. Check firewalls, security groups, and network policies.
 Expired credentials:: Client credentials do not expire, but they can be revoked. Check the credential status in Cerbos Hub.
 
 === PDP shows as disconnected in Cerbos Hub

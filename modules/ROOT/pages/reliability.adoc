@@ -2,6 +2,26 @@
 
 Cerbos Hub is designed for high availability. All PDPs continue to operate independently even when Cerbos Hub experiences disruptions.
 
+[#network-requirements]
+== Network requirements
+
+PDPs reach Cerbos Hub over outbound HTTPS on port 443. Allow these hosts through any egress proxy or firewall:
+
+[cols="2m,1,4",options="header"]
+|===
+| Host | Port | Purpose
+
+| api.cerbos.cloud
+| 443
+| Bundle update stream and audit log ingest. Uses the Connect protocol over HTTP/2; the update stream is a long-lived HTTP/2 stream.
+
+| cdn.cerbos.cloud
+| 443
+| All bundle content downloads: the bootstrap bundle at startup, and every bundle delivered by a subsequent policy update. Plain HTTPS.
+|===
+
+All connections to Cerbos Hub require TLS 1.3; a proxy that downgrades below TLS 1.3 is refused. The PDP honors the standard `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` environment variables.
+
 == Push-based updates
 
 When a PDP connects to Cerbos Hub, it establishes a two-way communication channel used to receive the initial policy bundle and subsequent update notifications. Because there is no polling, all PDPs converge on the same policy version within seconds of a change.
@@ -28,22 +48,7 @@ storage:
       cacheDir: /var/cerbos/hub # Directory to cache downloaded bundles
 ----
 
-Mount a persistent volume at this path when running in containers or Kubernetes. Cached bundles allow PDPs to restart without network access to Cerbos Hub.
-
-== Offline mode
-
-In disaster recovery scenarios, start the PDP with only the cached bundle:
-
-[source,shell]
-----
-docker run --rm --name cerbos \
-  -p 3592:3592 -p 3593:3593 \
-  -e CERBOS_HUB_OFFLINE=true \
-  -v /var/cerbos/hub:/var/cerbos/hub \
-  ghcr.io/cerbos/cerbos:latest server --config=/conf/.cerbos.yaml
-----
-
-The PDP loads the cached bundle and serves requests without connecting to Cerbos Hub.
+Mount a persistent volume at this path when running in containers or Kubernetes. Caching avoids re-downloading an unchanged bundle on restart. It does not enable an offline start: a PDP still contacts Cerbos Hub at startup to fetch its bundle, and fails to start if Hub cannot be reached.
 
 == Fallback to git
 

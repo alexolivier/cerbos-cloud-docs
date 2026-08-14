@@ -161,7 +161,7 @@ Expand a row to see the time range and filters the export was created with, the 
 
 === Downloading and decrypting
 
-The downloaded file is age-encrypted and gzip-compressed, and contains the exported entries as JSON Lines — one JSON object per log entry. To decrypt and read it, save your secret key as `age.key` and run:
+The downloaded file is age-encrypted and gzip-compressed, and contains the exported entries as JSON Lines, one JSON object per log entry. To decrypt and read it, save your secret key as `age.key` and run:
 
 [source,sh]
 ----
@@ -172,7 +172,7 @@ Because the output is JSON Lines, it can be piped directly into tools such as `j
 
 === Retention
 
-Completed exports remain available to download for seven days from the time they were generated. After that, the file is deleted and the export is marked as expired. Expiry applies only to the exported file — the underlying audit log data is unaffected and continues to be retained according to your plan, so the export can be re-created as long as the entries are still within that retention period.
+Completed exports remain available to download for seven days from the time they were generated. After that, the file is deleted and the export is marked as expired. Expiry applies only to the exported file; the underlying audit log data is unaffected and continues to be retained according to your plan, so the export can be re-created as long as the entries are still within that retention period.
 
 == Masking sensitive fields
 
@@ -213,7 +213,7 @@ audit:
 
 TIP: Use the xref:cerbos:configuration:audit.adoc#local[`local` audit backend] along with xref:cerbos:cli:cerbosctl.adoc#audit[cerbosctl audit commands] to inspect your audit logs locally and determine the paths that need to be masked.
 
-CAUTION: In order to avoid slowing down request processing and to avoid any data losses, raw log entries are stored locally on disk at the storage path. The masks are applied later by the background process that syncs the on-disk log entries to Cerbos Hub. To avoid storing authentication tokens and other sensitive request parameters locally, use the top-level `includeMetadataKeys` and `excludeMetadataKeys` settings. Refer to xref:cerbos:configuration:audit.adoc[Cerbos audit configuration] for more details.
+NOTE: Masks are applied before each entry is written to the local buffer on disk, so masked fields are neither stored locally nor transmitted to Cerbos Hub. To drop whole metadata keys such as authentication tokens, rather than mask specific field paths, use the top-level `includeMetadataKeys` and `excludeMetadataKeys` settings. Refer to xref:cerbos:configuration:audit.adoc[Cerbos audit configuration] for more details.
 
 == Data storage
 
