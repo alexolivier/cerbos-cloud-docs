@@ -1,5 +1,17 @@
 = Release notes
 
+== 2026-08-25
+
+[#_2026_08_25]
+
+=== Freeze a deployment and roll back to an earlier version
+
+[#_freeze_and_rollback_deployments]
+
+You can now hold a xref:deployments.adoc#_freezing_and_rolling_back[deployment] on a known-good version of your policies instead of always tracking the latest build. Freezing a deployment from its *Settings* tab keeps whatever is currently live in place: policy changes pushed to the linked stores are no longer built and delivered to connected PDPs until you unfreeze it. Frozen deployments are labelled in the deployment list and on the deployment page itself, so it is clear at a glance why new changes are not going out.
+
+The list of deployed versions now also offers a *Roll back* action on any earlier version and a *Promote* action on any newer one. Either choice makes that version live on connected PDPs immediately and freezes the deployment, so the version you picked stays put until you decide to resume. Unfreezing builds and deploys the latest version of your policies again, replacing whatever was pinned. Both freezing and rolling back are available to workspace Owners and Developers.
+
 == 2026-08-17
 
 [#_2026_08_17]
@@ -11,6 +23,12 @@
 The Settings tab of a xref:playground.adoc#_playground_engine_settings[playground] now has a *Strict evaluation* toggle, mirroring the xref:cerbos:configuration:engine.adoc#strict_evaluation[same setting] on a PDP. By default, an error raised while evaluating a condition or a variable — referencing an attribute that is not there, or comparing incompatible types — simply leaves the expression unsatisfied and evaluation carries on, which means a rule that should have denied an action can be skipped without you noticing. With strict evaluation enabled, those errors deny the affected action instead, so a broken condition surfaces while you are still writing the policy.
 
 The toggle applies to the xref:playground.adoc#_explore_tab[Explore tab] and the xref:playground.adoc#_try_the_api[Try the API] section, so you can compare both behaviours against the same policies. Test files are not affected, because each test suite and test case carries its own `options.strictEvaluation` setting.
+
+=== Playground settings are no longer reset when a playground loads
+
+[#_playground_settings_persist]
+
+Settings you save on the Settings tab of a xref:playground.adoc#_playground_engine_settings[playground] — the default policy version, globals, lenient scope search, and strict evaluation — now survive reopening it. Previously the built-in defaults could be applied over the top of your saved values while the playground was loading, quietly reverting your configuration. Saved values now always win, and defaults are only filled in for settings you have never set.
 
 == 2026-08-12
 
