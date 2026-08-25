@@ -2,8 +2,6 @@
 
 == 2026-08-25
 
-[#_2026_08_25]
-
 === Freeze a deployment and roll back to an earlier version
 
 [#_freeze_and_rollback_deployments]
@@ -13,8 +11,6 @@ You can now hold a xref:deployments.adoc#_freezing_and_rolling_back[deployment] 
 The list of deployed versions now also offers a *Roll back* action on any earlier version and a *Promote* action on any newer one. Either choice makes that version live on connected PDPs immediately and freezes the deployment, so the version you picked stays put until you decide to resume. Unfreezing builds and deploys the latest version of your policies again, replacing whatever was pinned. Both freezing and rolling back are available to workspace Owners and Developers.
 
 == 2026-08-17
-
-[#_2026_08_17]
 
 === Strict evaluation setting for playgrounds
 
@@ -32,8 +28,6 @@ Settings you save on the Settings tab of a xref:playground.adoc#_playground_engi
 
 == 2026-08-12
 
-[#_2026_08_12]
-
 === Policy links in audit log entries open the right file
 
 [#_audit_log_policy_links]
@@ -41,8 +35,6 @@ Settings you save on the Settings tab of a xref:playground.adoc#_playground_engi
 The policy names shown in the details of an xref:audit-log-collection.adoc[audit log] entry now link straight to that policy file in the deployment that made the decision, with the correct build already selected. Previously the link could land on the deployment's Policies tab without opening the file, leaving you to find it yourself.
 
 == 2026-08-11
-
-[#_2026_08_11]
 
 === Export audit logs from Cerbos Hub
 
