@@ -82,7 +82,7 @@ Organization roles, except for the `Member` role, apply to all workspaces within
 |✅
 |===
 
-== Workspace Roles
+== Workspace roles
 
 Permissions assigned at the organization level are inherited by all workspaces. Additionally, a user can be assigned specific roles within a workspace, potentially granting more permissions for that particular workspace only.
 
@@ -120,6 +120,12 @@ Permissions assigned at the organization level are inherited by all workspaces. 
 |✅
 |❌
 
+|View usage
+|✅
+|❌
+|✅
+|❌
+
 |Export audit logs
 |✅
 |❌
@@ -133,6 +139,12 @@ Permissions assigned at the organization level are inherited by all workspaces. 
 |❌
 
 |Manage deployments
+|✅
+|✅
+|❌
+|❌
+
+|Manage policy stores
 |✅
 |✅
 |❌

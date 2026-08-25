@@ -20,7 +20,7 @@ The list of deployed versions now also offers a *Roll back* action on any earlie
 
 [#_playground_strict_evaluation]
 
-The Settings tab of a xref:playground.adoc#_playground_engine_settings[playground] now has a *Strict evaluation* toggle, mirroring the xref:cerbos:configuration:engine.adoc#strict_evaluation[same setting] on a PDP. By default, an error raised while evaluating a condition or a variable — referencing an attribute that is not there, or comparing incompatible types — simply leaves the expression unsatisfied and evaluation carries on, which means a rule that should have denied an action can be skipped without you noticing. With strict evaluation enabled, those errors deny the affected action instead, so a broken condition surfaces while you are still writing the policy.
+The Settings tab of a xref:playground.adoc#_playground_engine_settings[playground] now has a *Strict evaluation* toggle, mirroring the xref:cerbos:configuration:engine.adoc#strict_evaluation[same setting] on a PDP. By default, an error raised while evaluating a condition or a variable leaves the expression unsatisfied and evaluation carries on, so a rule that would have denied an action is skipped. With strict evaluation enabled, those errors deny the affected action instead, so a broken condition surfaces while you are still writing the policy.
 
 The toggle applies to the xref:playground.adoc#_explore_tab[Explore tab] and the xref:playground.adoc#_try_the_api[Try the API] section, so you can compare both behaviours against the same policies. Test files are not affected, because each test suite and test case carries its own `options.strictEvaluation` setting.
 
@@ -28,7 +28,7 @@ The toggle applies to the xref:playground.adoc#_explore_tab[Explore tab] and the
 
 [#_playground_settings_persist]
 
-Settings you save on the Settings tab of a xref:playground.adoc#_playground_engine_settings[playground] — the default policy version, globals, lenient scope search, and strict evaluation — now survive reopening it. Previously the built-in defaults could be applied over the top of your saved values while the playground was loading, quietly reverting your configuration. Saved values now always win, and defaults are only filled in for settings you have never set.
+Settings you save on the Settings tab of a xref:playground.adoc#_playground_engine_settings[playground] (the default policy version, globals, lenient scope search, and strict evaluation) now survive reopening it. Previously the built-in defaults could be applied over the top of your saved values while the playground was loading, reverting your configuration. Saved values now take precedence, and defaults are only filled in for settings you have never set.
 
 == 2026-08-12
 
