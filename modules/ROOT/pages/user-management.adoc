@@ -132,6 +132,12 @@ Permissions assigned at the organization level are inherited by all workspaces. 
 |❌
 |❌
 
+|Manage deployments
+|✅
+|✅
+|❌
+|❌
+
 |Reset encryption key
 |✅
 |❌

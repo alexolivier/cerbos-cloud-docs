@@ -18,7 +18,7 @@ Policies:: Browse the current policies included in this deployment and view thei
 Decision points:: See the PDPs currently connected to this deployment. Each PDP shows its ID, the build it's running, active sessions, Cerbos version, when it was last seen, and a link to its audit logs.
 Embedded PDP rules:: Configure xref:deployments-epdp-rules.adoc[embedded policy decision points] for this deployment. Each rule defines policy filtering criteria (resources, actions, scopes, roles, versions), authentication requirements, and IP allowlists. Multiple rules can serve different clients or environments from the same deployment.
 Client credentials:: Manage API credentials scoped to this deployment for PDP connections, audit log collection, and authenticated ePDP bundle access.
-Settings:: Configure deployment options including which policy stores contribute to builds.
+Settings:: Configure deployment options including which policy stores contribute to builds, and <<_freezing_and_rolling_back,freeze or unfreeze>> the deployment.
 
 == Deployed versions
 
@@ -29,6 +29,32 @@ Build reference:: A unique identifier for the build. Click to view detailed info
 Active from:: The timestamp when this build was activated and pushed to connected PDPs.
 Active to:: The timestamp when this build was replaced by a newer version, or a dash if it is the currently active build.
 Included policies:: The policy stores and specific versions that contributed to this build. This makes it easy to trace exactly which policies were in effect at any point in time.
+
+== Freezing and rolling back
+
+By default a deployment always tracks the latest build: every change to a contributing policy store produces a new bundle that is delivered to connected PDPs as soon as it compiles and passes its tests. Freezing a deployment suspends that, and rolling back lets you put an earlier version of your policies live.
+
+Both actions require the `Owner` or `Developer` role in the workspace. See xref:user-management.adoc[User management] for details.
+
+=== Freezing a deployment
+
+Open the deployment's Settings tab and choose *Freeze deployment*. The version that is currently live stays live, and policy changes pushed to the linked stores are no longer deployed to connected PDPs while the deployment is frozen.
+
+A frozen deployment is labelled *Frozen* in the workspace deployment list and on the deployment page itself, so it is clear why recent policy changes have not reached your PDPs.
+
+Choose *Unfreeze deployment* on the same tab to resume. The latest version of your policies is built and deployed to connected PDPs, replacing whatever was live — including a version that was pinned by a rollback.
+
+=== Rolling back to an earlier version
+
+Each row in the <<_deployed_versions,deployed versions>> table other than the live one carries an action:
+
+[unordered.stack]
+Roll back:: Shown for versions older than the one that is currently live. Use it to return to a known-good bundle after a bad policy change.
+Promote:: Shown for versions newer than the one that is currently live, which is the case when a rollback has left the deployment pinned to an older bundle.
+
+Selecting either deploys that version to connected PDPs immediately and freezes the deployment, so the version you picked stays live until you unfreeze it. This means a rollback will not be undone by the next policy change that lands in a contributing store.
+
+If someone else changes the same deployment while you have the page open, your action is rejected and the page refreshes so you can check the current state before trying again.
 
 == Browsing policies
 
@@ -78,6 +104,8 @@ Whenever Cerbos Hub detects a change in any policy store connected to a deployme
 . **Compilation**: Policies from all contributing stores are compiled together. If compilation fails, the error is surfaced so you can diagnose it quickly.
 . **Test execution**: After successful compilation, Cerbos Hub runs all policy tests found across the contributing stores. Failures are displayed with full logs for debugging.
 . **Bundle generation**: When compilation and tests pass, the bundle is generated and all PDPs assigned to this deployment receive a push notification to download and activate the new bundle immediately.
+
+NOTE: While a deployment is <<_freezing_and_rolling_back,frozen>>, changes to the contributing policy stores are not deployed and the version that is currently live stays in place. Unfreezing the deployment builds and deploys the latest version of your policies.
 
 == Workspace issues
 
