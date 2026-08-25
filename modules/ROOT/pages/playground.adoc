@@ -56,9 +56,9 @@ The playground engine settings in the Settings tab allow you to configure the xr
 
 - **Lenient scope search**: When lenient scope search is enabled, if a policy with scope `a.b.c` does not exist in the store, Cerbos will attempt to find scopes `a.b`, `a` and ```` in that order.
 
-- **Globals**: Global variables are a way to pass environment-specific information to policy conditions. Values defined here are exposed to policy conditions via the `globals` object.
+- **Strict evaluation**: By default, an error raised while evaluating a condition or a variable leaves the expression unsatisfied and evaluation carries on, so a rule that would have denied an action is skipped. Typical causes are referencing an attribute that is not present and comparing incompatible types. When strict evaluation is enabled, such errors deny the affected action instead. This setting applies only to the <<_explore_tab,Explore tab>> and the <<_try_the_api,Try the API>> section; test files control it per suite or per test case with `options.strictEvaluation`. See xref:cerbos:configuration:engine.adoc#strict_evaluation[strict evaluation] for details of how the deny is scoped.
 
-- **Strict evaluation**: By default, an error raised while evaluating a condition or a variable — referencing an attribute that is not there, or comparing incompatible types — leaves the expression unsatisfied and evaluation carries on, so a rule that should have denied an action can be skipped without you noticing. When strict evaluation is enabled, such errors deny the affected action instead. This setting applies to the <<_explore_tab,Explore tab>> and the <<_try_the_api,Try the API>> section only; test files control it per suite or per test case with `options.strictEvaluation`. See xref:cerbos:configuration:engine.adoc#strict_evaluation[strict evaluation] for details of how the deny is scoped.
+- **Globals**: Global variables are a way to pass environment-specific information to policy conditions. Values defined here are exposed to policy conditions via the `globals` object.
 
 You can find full details of these settings in the xref:cerbos:configuration:engine.adoc[Cerbos configuration reference].
 
