@@ -139,6 +139,8 @@ Apply the filters and time range you want on the _Decision logs_ or _Access logs
 
 Exports are produced in the background. Click **Add to export queue** to start one, then follow its progress on the _Exports_ tab. You do not need to keep the page open.
 
+NOTE: Cerbos Hub limits how many exports can be started from a workspace within an hour. When the limit is reached, starting another export fails and nothing is added to the queue. An export stops counting towards the limit an hour after it was created.
+
 === Encryption keys
 
 Every export is encrypted with https://age-encryption.org[age] before it is written to storage. You need the corresponding secret key to read the file afterwards.
