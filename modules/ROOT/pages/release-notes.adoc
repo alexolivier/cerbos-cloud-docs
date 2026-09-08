@@ -1,5 +1,19 @@
 = Release notes
 
+== 2026-09-08
+
+=== A refreshed look for the Cerbos Hub console
+
+[#_refreshed_console_design]
+
+The Cerbos Hub console has been restyled throughout. Colours, typography and spacing now come from a single design system, so buttons, forms, tables and dialogs are consistent across the console. A navigation header runs across the top of every page, holding the organization switcher, the help menu and your account menu, and sidebars can be collapsed to give the content more room. Page structure and functionality are unchanged, so existing links and bookmarks continue to work.
+
+=== Light and dark themes for the console
+
+[#_console_theme_preference]
+
+The console can now be displayed in a light or a dark theme. Open the account menu at the top right of any page and choose *Light theme*, *Dark theme*, or *System theme*, which follows the setting of your operating system. The preference is stored in your browser, so it does not carry over to other browsers or devices, and it does not affect other members of your organization.
+
 == 2026-08-25
 
 === Freeze a deployment and roll back to an earlier version
