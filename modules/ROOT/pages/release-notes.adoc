@@ -8,7 +8,7 @@
 
 [#_playground_header_source]
 
-The header of a xref:playground.adoc#_creating_a_playground[playground] created from a policy store, a deployment, a build or another playground now shows which one it was created from and the workspace that source belongs to. The source links to that store, deployment, build or playground.A source that has since been deactivated or deleted is shown without a link, and a source you do not have access to is not shown.
+The header of a xref:playground.adoc#_creating_a_playground[playground] created from a policy store, a deployment, a build or another playground now shows which one it was created from and the workspace that source belongs to. The source links to that store, deployment, build or playground. A source that has since been deactivated or deleted is shown without a link, and a source you do not have access to is not shown.
 
 == 2026-10-08
 
