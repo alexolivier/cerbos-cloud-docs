@@ -10,22 +10,6 @@
 
 The header of a xref:playground.adoc#_creating_a_playground[playground] created from a policy store, a deployment, a build or another playground now shows which one it was created from and the workspace that source belongs to. The source links to that store, deployment, build or playground.A source that has since been deactivated or deleted is shown without a link, and a source you do not have access to is not shown.
 
-=== Cerbos 0.57.0 in playgrounds and PDP configuration examples
-
-[#_cerbos_0_57_0]
-
-Playgrounds now evaluate policies and run tests with Cerbos 0.57.0, and the policy editor validates files against the 0.57.0 schemas. The configuration examples shown when you connect a policy decision point to a xref:deployments.adoc[deployment] now install Cerbos 0.57.0.
-
-== 2026-10-16
-
-[#_2026_10_16]
-
-=== Clearer errors when uploading policies in the browser
-
-[#_upload_errors]
-
-When you xref:policy-stores-upload.adoc[upload a ZIP file] to a policy store and its policies are identical to the latest version of the store, the upload dialog now tells you so. No new store version is created in that case. Uploading a file that is not a valid ZIP archive now shows a message asking for a valid ZIP file. Both messages appear next to the file field, so you can correct the upload without leaving the dialog.
-
 == 2026-10-08
 
 === Policies keep building while a deployment is frozen
