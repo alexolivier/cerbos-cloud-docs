@@ -1,5 +1,15 @@
 = Release notes
 
+== 2026-11-03
+
+[#_2026_11_03]
+
+=== Redesigned sign-in, sign-up and password reset pages
+
+[#_redesigned_sign_in_pages]
+
+The pages for signing in to Cerbos Hub, creating an account and resetting a password have been redesigned. The sign-in page marks the method you used last time: GitHub, Google or email. When you create an account or set a new password, the password requirements are listed below the field. The way you sign in and your existing accounts are unchanged.
+
 == 2026-10-26
 
 [#_2026_10_26]
