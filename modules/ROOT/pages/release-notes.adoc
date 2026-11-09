@@ -1,5 +1,25 @@
 = Release notes
 
+== 2026-11-05
+
+[#_2026_11_05]
+
+=== Connected policy stores in the playground header
+
+[#_playground_header_connected_stores]
+
+The header of a xref:playground.adoc#_create_from_a_deployment[playground created from a deployment] now shows how many policy stores the playground was populated from. Select the count to list each store and the version copied into the playground. Each entry links to that version of the store. A store that has since been deactivated or deleted is listed without a link, and a store you do not have access to is not listed. Playgrounds created before this release do not show connected stores.
+
+== 2026-11-04
+
+[#_2026_11_04]
+
+=== Fix for opening a policy store in a playground
+
+[#_open_store_in_playground_fix]
+
+Fixed an issue where xref:playground.adoc#_create_from_a_policy_store[creating a playground from a policy store] with *Open in playground* redirected to an error page. Submitting the form now opens the new playground.
+
 == 2026-11-03
 
 [#_2026_11_03]
