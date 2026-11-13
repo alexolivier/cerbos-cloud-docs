@@ -43,7 +43,7 @@ Select **Start from a deployment** when creating a playground, then choose a dep
 
 Open the xref:deployments.adoc#_build_details[build details] page and click **Open in playground**. The playground is populated with the policy store versions that went into the build, so you can investigate the exact policies that the build contains.
 
-The default title of a playground created from a store, deployment, or build names the source and the workspace it belongs to.
+The default title of a playground created from a store, deployment, or build names the source and the workspace it belongs to. The playground's header and its card on the *Playgrounds* page show the source and link to it.
 
 Changes made in a playground do not affect the source store, deployment, or build.
 

@@ -1,5 +1,27 @@
 = Release notes
 
+== 2026-11-12
+
+[#_2026_11_12]
+
+=== Deployment checks
+
+[#_deployment_checks]
+
+You can now require sign-off before a new policy build goes live on a deployment. Add a xref:deployments.adoc#_deployment_checks[deployment check] on the deployment's *Settings* tab and choose how many people must approve each new version. Successful builds then wait under *Upcoming versions* until workspace Owners or Developers approve them from the build details page, and each build keeps a record of who approved it and when. Checks are set per deployment, so production can require sign-off while staging keeps deploying automatically, and rolling back or promoting an earlier version does not need new approvals.
+
+=== Playground list shows where each playground came from
+
+[#_playground_list_source]
+
+Cards on the *Playgrounds* page now show whether a playground was xref:playground.adoc#_creating_a_playground[created from] a policy store, a deployment, a build or another playground. As in the playground header, the source links to that store, deployment, build or playground, and a playground created from a deployment lists the policy stores it was populated from.
+
+=== Invitation details on the sign-in and sign-up pages
+
+[#_invitation_sign_in_details]
+
+When you accept an invitation to Cerbos Hub, the password step of signing in or creating an account now says who invited you and which organization you are joining. That step also offers the other ways to sign in, so you can switch to GitHub or Google without starting over.
+
 == 2026-11-05
 
 [#_2026_11_05]

@@ -18,11 +18,11 @@ Policies:: Browse the current policies included in this deployment and view thei
 Decision points:: See the PDPs currently connected to this deployment. Each PDP shows its ID, the build it's running, active sessions, Cerbos version, when it was last seen, and a link to its audit logs.
 Embedded PDP rules:: Configure xref:deployments-epdp-rules.adoc[embedded policy decision points] for this deployment. Each rule defines policy filtering criteria (resources, actions, scopes, roles, versions), authentication requirements, and IP allowlists. Multiple rules can serve different clients or environments from the same deployment.
 Client credentials:: Manage API credentials scoped to this deployment for PDP connections, audit log collection, and authenticated ePDP bundle access.
-Settings:: Configure deployment options including which policy stores contribute to builds, and <<_freezing_and_rolling_back,freeze or unfreeze>> the deployment.
+Settings:: Configure deployment options including which policy stores contribute to builds, <<_freezing_and_rolling_back,freeze or unfreeze>> the deployment, and add <<_deployment_checks,deployment checks>>.
 
 == Deployed versions
 
-The Builds tab lists builds in two tables. *Upcoming versions* shows builds that are newer than the live version and have not replaced it yet, with the status and start time of each build. While the deployment is <<_freezing_and_rolling_back,frozen>>, these builds are not deployed.
+The Builds tab lists builds in two tables. *Upcoming versions* shows builds that are newer than the live version and have not replaced it yet, with the status and start time of each build. While the deployment is <<_freezing_and_rolling_back,frozen>>, these builds are not deployed. When the deployment has <<_deployment_checks,deployment checks>>, each upcoming version also shows how many checks it has passed and what it is waiting for before it can go live.
 
 *Deployed versions* shows the history of policy bundles that have been deployed. Each row in the table shows:
 
@@ -61,6 +61,44 @@ Promote:: Shown for versions newer than the one that is currently live, which ha
 Selecting either deploys that version to connected PDPs immediately and freezes the deployment. The version you picked stays live until you unfreeze it, so a rollback is not undone by the next policy change that lands in a contributing store.
 
 If someone else changes the same deployment while you have the page open, your action is rejected and the page refreshes so you can check the current state before trying again.
+
+== Deployment checks
+
+By default, every successful build goes live on a deployment's PDPs as soon as it is ready. A deployment check holds each new build back until it has been approved, so a person signs off on every change to the policies a deployment serves before it reaches connected PDPs.
+
+Checks are set per deployment. You can require sign-off on a production deployment while a staging deployment that uses the same policy stores keeps deploying automatically.
+
+Deployment checks complement pull request review in Git. A pull request review decides whether a change to one repository is correct. A deployment check decides whether the complete build, which can combine several policy stores into one bundle, should go live in a particular environment. Checks also apply to policy stores that are updated through the API or the Cerbos Hub UI rather than from Git.
+
+=== Adding a deployment check
+
+Open the deployment's Settings tab and choose *Add check* in the *Deployment checks* section. Set the following:
+
+[unordered.stack]
+Type:: The kind of check. *Sign off* requires a workspace member to approve each new version.
+Name:: A label that identifies the check, for example `Security team approval`. It is shown on every build that is waiting for the check.
+Approvals required:: The number of different people who must approve each new version, from one to five.
+
+A deployment can have one sign-off check. Use the same section to edit the check or delete it. Once a check is deleted, new and pending versions no longer wait for it.
+
+Adding, editing and deleting checks requires the `Owner` or `Developer` role in the workspace. See xref:user-management.adoc[User management] for details.
+
+=== Approving a build
+
+Builds compile and run their tests as usual. A build that succeeds waits for its checks instead of going live. It is listed under *Upcoming versions* on the <<_deployed_versions,Builds tab>>, and the workspace deployment list shows that the deployment has a version waiting.
+
+Open the <<_build_details,build details>> page to review the build, including its test results and bundle contents. The *Deployment checks* panel shows each check, how many approvals it has, and who approved and when. Choose *Approve* to add your approval. Each person can approve a build once, and approving requires the `Owner` or `Developer` role in the workspace.
+
+When the last required approval is recorded, the build goes live on connected PDPs straight away. If the deployment is <<_freezing_a_deployment,frozen>>, the approved build waits until you unfreeze it.
+
+=== How checks interact with other changes
+
+[unordered.stack]
+New policy changes:: When a contributing policy store changes again before a waiting build is approved, the new build replaces it. Approvers only review the latest build, and approvals given to the replaced build do not carry over.
+Rolling back and promoting:: <<_rolling_back_to_an_earlier_version,Rolling back or promoting>> a version that has been live before does not need new approvals. It deploys the version immediately and freezes the deployment, as usual.
+Unfreezing:: When you unfreeze a deployment that has checks, the latest build still needs its approvals before it goes live.
+
+The build details page of each deployed version keeps the record of the checks that applied to it, who approved it and when. You can use this record as evidence of change approval for audits.
 
 == Browsing policies
 
@@ -109,7 +147,7 @@ Whenever Cerbos Hub detects a change in any policy store connected to a deployme
 . **In progress**: The policy build is queued and begins processing.
 . **Compilation**: Policies from all contributing stores are compiled together. If compilation fails, the error is surfaced so you can diagnose it quickly.
 . **Test execution**: After successful compilation, Cerbos Hub runs all policy tests found across the contributing stores. Failures are displayed with full logs for debugging.
-. **Bundle generation**: When compilation and tests pass, the bundle is generated and all PDPs assigned to this deployment receive a push notification to download and activate the new bundle immediately.
+. **Bundle generation**: When compilation and tests pass, the bundle is generated and all PDPs assigned to this deployment receive a push notification to download and activate the new bundle immediately. If the deployment has <<_deployment_checks,deployment checks>>, the bundle waits for its approvals first.
 
 NOTE: While a deployment is <<_freezing_and_rolling_back,frozen>>, changes to the contributing policy stores are not deployed and the version that is currently live stays in place. Unfreezing the deployment builds and deploys the latest version of your policies.
 
