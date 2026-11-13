@@ -8,7 +8,7 @@
 
 [#_deployment_checks]
 
-You can now require sign-off before a new policy build goes live on a deployment. Add a xref:deployments.adoc#_deployment_checks[deployment check] on the deployment's *Settings* tab and choose how many people must approve each new version. Successful builds then wait under *Upcoming versions* until workspace Owners or Developers approve them from the build details page, and each build keeps a record of who approved it and when. Checks are set per deployment, so production can require sign-off while staging keeps deploying automatically, and rolling back or promoting an earlier version does not need new approvals.
+You can now require sign-off before a new policy build goes live on a deployment. Add a xref:deployments.adoc#_deployment_checks[sign-off check] on the deployment's *Settings* tab and choose how many people must approve each new version. Successful builds then wait under *Upcoming versions* until workspace Owners or Developers approve them from the build details page, and each build keeps a record of who approved it and when. The check is set per deployment, so production can require sign-off while staging keeps deploying automatically, and rolling back or promoting an earlier version does not need new approvals.
 
 === Playground list shows where each playground came from
 
