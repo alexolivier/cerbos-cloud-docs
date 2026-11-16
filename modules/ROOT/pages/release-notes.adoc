@@ -16,12 +16,6 @@ You can now require sign-off before a new policy build goes live on a deployment
 
 Cards on the *Playgrounds* page now show whether a playground was xref:playground.adoc#_creating_a_playground[created from] a policy store, a deployment, a build or another playground. As in the playground header, the source links to that store, deployment, build or playground, and a playground created from a deployment lists the policy stores it was populated from.
 
-=== Invitation details on the sign-in and sign-up pages
-
-[#_invitation_sign_in_details]
-
-When you accept an invitation to Cerbos Hub, the password step of signing in or creating an account now says who invited you and which organization you are joining. That step also offers the other ways to sign in, so you can switch to GitHub or Google without starting over.
-
 == 2026-11-05
 
 [#_2026_11_05]
