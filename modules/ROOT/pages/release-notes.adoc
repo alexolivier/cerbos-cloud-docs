@@ -8,7 +8,7 @@
 
 [#_redesigned_members_page]
 
-The organization *Members* page now lists members and pending invitations in a table that shows each person's xref:user-management.adoc#_organization_roles[organization role] and workspace access. You can search for members and filter the list by role, status or workspace. Select *Manage access* to change a member's organization and workspace roles in one panel, which asks you to confirm before you downgrade your own access. This also fixes an issue where changes to an existing member's roles could not be saved.
+The organization *Members* page has a new layout. You can now filter the member list by xref:user-management.adoc#_organization_roles[role] and by status. A member's workspace roles are now shown in a slide-out panel, which you open by selecting *Manage access* next to the member.
 
 == 2026-11-05
 
