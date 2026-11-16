@@ -1,5 +1,15 @@
 = Release notes
 
+== 2026-11-12
+
+[#_2026_11_12]
+
+=== Redesigned organization members page
+
+[#_redesigned_members_page]
+
+The organization *Members* page now lists members and pending invitations in a table that shows each person's xref:user-management.adoc#_organization_roles[organization role] and workspace access. You can search for members and filter the list by role, status or workspace. Select *Manage access* to change a member's organization and workspace roles in one panel, which asks you to confirm before you downgrade your own access. This also fixes an issue where changes to an existing member's roles could not be saved.
+
 == 2026-11-05
 
 [#_2026_11_05]
