@@ -1,5 +1,25 @@
 = Release notes
 
+== 2026-11-17
+
+[#_2026_11_17]
+
+=== Fix for builds with compilation errors
+
+[#_build_compilation_errors_fix]
+
+Fixed an issue where a policy build that contained compilation errors was not marked as failed. These builds now fail at the compile stage, and the errors are listed in the xref:deployments.adoc#_compile_and_test_stages[Compile] section of the build details page so you can see which policies need fixing.
+
+== 2026-11-16
+
+[#_2026_11_16]
+
+=== Fix for entries in the audit log tables
+
+[#_audit_log_table_fix]
+
+Fixed an issue where entries at the top of the xref:audit-log-collection.adoc#_accessing_the_logs[decision log and access log] tables could disappear and reappear while newer entries loaded. The tables now keep your scroll position as entries load and show placeholder rows while you scroll quickly. If entries fail to load, the error is shown inside the table instead of replacing the page.
+
 == 2026-11-12
 
 [#_2026_11_12]
@@ -15,6 +35,12 @@ You can now require sign-off before a new policy build goes live on a deployment
 [#_playground_list_source]
 
 Cards on the *Playgrounds* page now show whether a playground was xref:playground.adoc#_creating_a_playground[created from] a policy store, a deployment, a build or another playground. As in the playground header, the source links to that store, deployment, build or playground, and a playground created from a deployment lists the policy stores it was populated from.
+
+=== More sign-in options when accepting an invitation
+
+[#_invitation_sign_in_options]
+
+When you accept an invitation to an organization and choose to sign in or create an account with email, the page now also offers GitHub and Google. The invitation is accepted whichever method you use.
 
 == 2026-11-05
 
